@@ -46,26 +46,31 @@ action code {:
 
 :}
 
-non terminal programa, dec_metodos, metodos, dec_args, args, cuerpo_metodo, dec_for, dec_asigs, dec_call, dec_return, cuerpo_for, for_st_1, for_st_2, for_st_3, init_for;
+non terminal programa, dec_metodos, metodos, dec_args, args, cuerpo_metodo, dec_for, dec_ops,
+ dec_asigs, dec_call, dec_return, cuerpo_for, for_st_1, for_st_2, for_st_3, init_for;
 
-terminal String LL_OP, LL_CL, PUNTOYCOMA, FOR, METODOS,ID, TIPOS_VAR, RETURN, PUNTOCOMA, RELACIONALES, ASIGNACION, INCREMENTO, DECREMENTO, LOGICOS, MAS, MENOS, DIV, POR, PAR_OP, PAR_CL, TIPO_BOOL, COMA, NUMERO, TRUE, FALSE;
+
+terminal String LL_OP, LL_CL, FOR ,ID, TIPOS_VAR, RETURN, PUNTOCOMA,
+RELACIONALES, ASIGNACION, INCREMENTO, DECREMENTO, ARIT, PAR_OP, PAR_CL, COMA, NUM,
+BEGIN_METODOS, TIPOS_METODOS, BOOLEANOS, LOGICOS_B, LOGICOS_U;
+
 
 programa ::= dec_metodos ;
 
 dec_metodos ::= metodos | metodos dec_metodos;
 
-metodos ::= METODOS tipos ID PAR_OP dec_args PAR_CL LL_OP cuerpo_metodo LL_CL;
+metodos ::= BEGIN_METODOS TIPOS_METODOS ID PAR_OP dec_args PAR_CL LL_OP cuerpo_metodo LL_CL;
 
 dec_args ::= args | args dec_args;
 
 args ::= TIPOS_VAR ID | COMA TIPOS_VAR ID;
 
-cuerpo_metodo ::= dec_for dec_asigs dec_call dec_return;
+cuerpo_metodo ::= dec_for dec_asigs dec_call dec_ops dec_return;
 
 dec_for ::= FOR init_for LL_OP cuerpo_for LL_CL |
              FOR init_for LL_OP cuerpo_for dec_for LL_CL ;
 
-init_for ::= PAR_OP for_st_1 PUNTOYCOMA for_st_2 PUNTOYCOMA for_st_3 PAR_CL;
+init_for ::= PAR_OP for_st_1 PUNTOCOMA for_st_2 PUNTOCOMA for_st_3 PAR_CL;
 
 for_st_1 ::= TIPOS_VAR ID ASIGNACION ID | ID ASIGNACION ID;
 
@@ -75,5 +80,10 @@ for_st_3 ::= ID INCREMENTO | ID DECREMENTO;
 
 cuerpo_for ::= dec_asigs dec_call;
 
-dec_asigs ::= TIPOS_VAR ID ASIGNACION ID PUNTOYCOMA;
+dec_asigs ::= TIPOS_VAR ID ASIGNACION ID PUNTOCOMA | TIPOS_VAR ID ASIGNACION BOOLEANOS PUNTOCOMA;
 
+dec_call ::=;
+
+dec_return ::= RETURN ID PUNTOCOMA | RETURN BOOLEANOS PUNTOCOMA | RETURN dec_ops PUNTOCOMA;
+
+dec_ops ::= NUM ;

@@ -8,41 +8,35 @@ package teoria_automatas;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int RELACIONALES = 11;
-  public static final int LOGICOS = 15;
-  public static final int MENOS = 17;
-  public static final int PUNTOYCOMA = 4;
-  public static final int METODOS = 6;
-  public static final int RETURN = 9;
-  public static final int TRUE = 25;
-  public static final int POR = 19;
-  public static final int ID = 7;
-  public static final int COMA = 23;
-  public static final int ASIGNACION = 12;
+  public static final int RELACIONALES = 9;
+  public static final int ARIT = 13;
+  public static final int LOGICOS_B = 21;
+  public static final int RETURN = 7;
+  public static final int ID = 5;
+  public static final int NUM = 17;
+  public static final int COMA = 16;
+  public static final int ASIGNACION = 10;
+  public static final int TIPOS_METODOS = 19;
   public static final int EOF = 0;
-  public static final int TIPOS_VAR = 8;
-  public static final int DIV = 18;
-  public static final int TIPO_BOOL = 22;
-  public static final int FALSE = 26;
-  public static final int INCREMENTO = 13;
-  public static final int NUMERO = 24;
-  public static final int PAR_CL = 21;
-  public static final int PAR_OP = 20;
+  public static final int TIPOS_VAR = 6;
+  public static final int BEGIN_METODOS = 18;
+  public static final int INCREMENTO = 11;
   public static final int error = 1;
-  public static final int PUNTOCOMA = 10;
-  public static final int DECREMENTO = 14;
-  public static final int FOR = 5;
+  public static final int PAR_CL = 15;
+  public static final int PAR_OP = 14;
+  public static final int LOGICOS_U = 22;
+  public static final int BOOLEANOS = 20;
+  public static final int PUNTOCOMA = 8;
+  public static final int DECREMENTO = 12;
+  public static final int FOR = 4;
   public static final int LL_CL = 3;
-  public static final int MAS = 16;
   public static final int LL_OP = 2;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
   "LL_OP",
   "LL_CL",
-  "PUNTOYCOMA",
   "FOR",
-  "METODOS",
   "ID",
   "TIPOS_VAR",
   "RETURN",
@@ -51,18 +45,16 @@ public class sym {
   "ASIGNACION",
   "INCREMENTO",
   "DECREMENTO",
-  "LOGICOS",
-  "MAS",
-  "MENOS",
-  "DIV",
-  "POR",
+  "ARIT",
   "PAR_OP",
   "PAR_CL",
-  "TIPO_BOOL",
   "COMA",
-  "NUMERO",
-  "TRUE",
-  "FALSE"
+  "NUM",
+  "BEGIN_METODOS",
+  "TIPOS_METODOS",
+  "BOOLEANOS",
+  "LOGICOS_B",
+  "LOGICOS_U"
   };
 }
 

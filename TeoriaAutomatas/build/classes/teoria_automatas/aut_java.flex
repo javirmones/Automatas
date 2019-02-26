@@ -35,10 +35,15 @@ COMENTARIOT = "/*" [^*] ~"*/" | "*/" "*"+ "/"
 FINLINEACOMENT = "//" {CARACTERIN}* {TERMINAR_LINEA}?
 ENTEROS = 0 | [1-9][0-9]*
 ID = [:jletter:][:jletterdigit:]*
-METODOS = "public static"
-LOGICOS = "&&" | "||" | "!"
+BEGIN_METODOS = "public static"
+LOGICOS_BINARIOS = "&&" | "||"
+LOGICOS_UNARIOS = "!"
 FOR = "for"
-TIPOS_VAR = "int" | "boolean" | "void"
+TIPOS_METODOS = "int" | "boolean" | "void"
+TIPOS_VAR = "int" | "boolean"
+RETURN = "return"
+BOOLEANOS = "true" | "false"
+ARIT = "*" | "/" | "+" | "-"
 RELACIONALES = "<" | "<=" | ">" | ">=" | "==" | "!="
 PUNTOCOMA = ";"
 ASIGNACION = "="
@@ -51,36 +56,33 @@ PAR_CL = ")"
 
 
 %%
-
-<YYINITIAL> {
-    
-    {FOR} {return symbol(sym.FOR, new String(yytext()));}
-    {TIPOS_VAR} {return symbol(sym.TIPOS_VAR, new String(yytext()));}
-    "true" {return symbol(sym.TRUE, new String(yytext()));}
-    "false" {return symbol(sym.FALSE, new String(yytext()));}
-    {ID} {return symbol(sym.ID, new String(yytext()));}
-    {METODOS} {return symbol(sym.METODOS, new String(yytext()));}
-    {PUNTOCOMA} {return symbol(sym.PUNTOCOMA);}
     {RELACIONALES} {return symbol(sym.RELACIONALES, new String(yytext()));}
+    {RETURN} {return symbol(sym.RETURN, new String(yytext()));} 
+    {FOR} {return symbol(sym.TIPOS_VAR, new String(yytext()));}
+    {TIPOS_VAR} {return symbol(sym.TIPOS_VAR, new String(yytext()));}
+    {BEGIN_METODOS} {return symbol(sym.BEGIN_METODOS, new String(yytext()));}
+    {TIPOS_METODOS} {return symbol(sym.TIPOS_METODOS, new String(yytext()));}
+    {ARIT} {return symbol(sym.ARIT, new String(yytext()));}
+    {RELACIONALES} {return symbol(sym.RELACIONALES, new String(yytext()));}
+    {BOOLEANOS} {return symbol(sym.BOOLEANOS, new String(yytext()));}
+    {ID} {return symbol(sym.ID, new String(yytext()));}
+    {PUNTOCOMA} {return symbol(sym.PUNTOCOMA);}
     {ASIGNACION} {return symbol(sym.ASIGNACION, new String(yytext()));}
     {INCREMENTO} {return symbol(sym.INCREMENTO);}
     {DECREMENTO} {return symbol(sym.DECREMENTO);}
-    {LOGICOS} {return symbol(sym.LOGICOS);}
-    "+" {return symbol(sym.MAS);}
-    "-" {return symbol(sym.MENOS);}
-    "/" {return symbol(sym.DIV);}
-    "*" {return symbol(sym.POR);}
+    {LOGICOS_BINARIOS} {return symbol(sym.LOGICOS_B);}
+    {LOGICOS_UNARIOS} {return symbol(sym.LOGICOS_U);}
     {LL_OP} {return symbol(sym.LL_OP);}
     {LL_CL} {return symbol(sym.LL_CL);}
     {PAR_OP} {return symbol(sym.PAR_OP);}
     {PAR_CL} {return symbol(sym.PAR_CL);}
     "," {return symbol(sym.COMA);}
 
-    {COMENTARIO} {}
+    {COMENTARIO} {/*Ignoramos comentarios*/}
     {ESPACIOBLANCO} {}
-    {ENTEROS} {return symbol(sym.NUMERO);}
+    {ENTEROS} {return symbol(sym.NUM);}
 
-}
+
 
 [^]   {System.out.println("ERROR");}
 
