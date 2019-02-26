@@ -10,6 +10,7 @@ parser code {:
 
 public void report_error(String message, Object info) {
 
+/*Parafernalia de pepe castro para pillar errores....*/
         StringBuffer m = new StringBuffer("Error");
 
         if (info instanceof java_cup.runtime.Symbol) {
@@ -57,19 +58,26 @@ BEGIN_METODOS, TIPOS_METODOS, BOOLEANOS, LOGICOS_B, LOGICOS_U;
 
 programa ::= dec_metodos ;
 
+/*Para poder generar los metodos de 1 a N veces*/
 dec_metodos ::= metodos | metodos dec_metodos;
 
 metodos ::= BEGIN_METODOS TIPOS_METODOS ID PAR_OP dec_args PAR_CL LL_OP cuerpo_metodo LL_CL;
 
+/*Argumentos de los métodos de 1 a N veces*/
 dec_args ::= args | args dec_args;
 
+/*Los argumentos se definen como int hola, int adios*/
 args ::= TIPOS_VAR ID | COMA TIPOS_VAR ID;
 
+
+/*El cuerpo de los metodos es lo que queramos meterle dentro*/
 cuerpo_metodo ::= dec_for dec_asigs dec_call dec_ops dec_return;
 
+/*Realizamos aqui la declaracion de uno o muchos bucles for*/
 dec_for ::= FOR init_for LL_OP cuerpo_for LL_CL |
              FOR init_for LL_OP cuerpo_for dec_for LL_CL ;
 
+/*El contenido del bucle (   A  ; B ;  C ) donde A = for_st_1, B = for_st_2 y C = for_st_3 */
 init_for ::= PAR_OP for_st_1 PUNTOCOMA for_st_2 PUNTOCOMA for_st_3 PAR_CL;
 
 for_st_1 ::= TIPOS_VAR ID ASIGNACION ID | ID ASIGNACION ID;
@@ -82,8 +90,13 @@ cuerpo_for ::= dec_asigs dec_call;
 
 dec_asigs ::= TIPOS_VAR ID ASIGNACION ID PUNTOCOMA | TIPOS_VAR ID ASIGNACION BOOLEANOS PUNTOCOMA;
 
+/*Aqui pretendo construir sintácticamente las llamadas tipo a = calculo(val) o mostrartal(e, a )*/ 
 dec_call ::=;
 
+/*Aqui pretendo construir la finalización de los metodos que puedan retornar, sintácticamente
+no influye que se pueda construir un método void con return ya que eso se comprueba en el  A. semántico*/
 dec_return ::= RETURN ID PUNTOCOMA | RETURN BOOLEANOS PUNTOCOMA | RETURN dec_ops PUNTOCOMA;
 
+
+/*Aqui pretendo implementar operaciones de tipo (x<3) && !true */
 dec_ops ::= NUM ;

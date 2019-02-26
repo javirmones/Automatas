@@ -161,6 +161,7 @@ public class parser extends java_cup.runtime.lr_parser {
 
 public void report_error(String message, Object info) {
 
+/*Parafernalia de pepe castro para pillar errores....*/
         StringBuffer m = new StringBuffer("Error");
 
         if (info instanceof java_cup.runtime.Symbol) {
