@@ -195,11 +195,12 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
     "\1\0\1\1\2\2\2\3\2\4\5\5\2\1\1\6"+
     "\3\5\2\3\1\7\1\10\1\11\1\12\1\13\1\14"+
     "\1\15\1\16\1\17\2\0\4\5\1\20\1\7\4\5"+
-    "\1\21\1\22\2\17\2\0\2\5\1\23\4\5\1\0"+
-    "\2\5\1\24\1\5\1\25\5\5\1\26\6\0\1\27";
+    "\1\21\1\22\2\17\2\0\2\5\1\23\2\5\1\24"+
+    "\2\5\1\0\2\5\1\25\1\5\1\26\5\5\1\27"+
+    "\6\0\1\30";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[74];
+    int [] result = new int[75];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -230,13 +231,13 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
     "\0\50\0\50\0\50\0\50\0\50\0\u02f8\0\u0320\0\u0348"+
     "\0\u0370\0\u0398\0\u03c0\0\u03e8\0\50\0\50\0\u0410\0\u0438"+
     "\0\u0460\0\u0488\0\50\0\50\0\u04b0\0\50\0\u04d8\0\u0500"+
-    "\0\u0528\0\u0550\0\360\0\u0578\0\u05a0\0\u05c8\0\u05f0\0\u0618"+
-    "\0\u0640\0\u0668\0\360\0\u0690\0\360\0\u06b8\0\u06e0\0\u0708"+
-    "\0\u0730\0\u0758\0\360\0\u0780\0\u07a8\0\u07d0\0\u07f8\0\u0820"+
-    "\0\u0848\0\50";
+    "\0\u0528\0\u0550\0\360\0\u0578\0\u05a0\0\360\0\u05c8\0\u05f0"+
+    "\0\u0618\0\u0640\0\u0668\0\360\0\u0690\0\360\0\u06b8\0\u06e0"+
+    "\0\u0708\0\u0730\0\u0758\0\360\0\u0780\0\u07a8\0\u07d0\0\u07f8"+
+    "\0\u0820\0\u0848\0\50";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[74];
+    int [] result = new int[75];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -281,25 +282,25 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
     "\3\0\7\11\20\0\5\11\1\64\4\11\1\0\3\11"+
     "\3\0\7\11\20\0\7\11\1\65\2\11\1\0\3\11"+
     "\3\0\7\11\20\0\12\11\1\0\3\11\3\0\2\11"+
-    "\1\63\4\11\20\0\12\11\1\0\1\11\1\66\1\11"+
-    "\3\0\7\11\20\0\10\11\1\67\1\11\1\0\3\11"+
-    "\3\0\7\11\14\0\1\56\45\0\5\57\1\70\42\57"+
-    "\4\0\1\56\1\60\50\0\7\11\1\71\2\11\1\0"+
-    "\3\11\3\0\7\11\20\0\7\11\1\72\2\11\1\0"+
+    "\1\66\4\11\20\0\12\11\1\0\1\11\1\67\1\11"+
+    "\3\0\7\11\20\0\10\11\1\70\1\11\1\0\3\11"+
+    "\3\0\7\11\14\0\1\56\45\0\5\57\1\71\42\57"+
+    "\4\0\1\56\1\60\50\0\7\11\1\72\2\11\1\0"+
+    "\3\11\3\0\7\11\20\0\7\11\1\73\2\11\1\0"+
     "\3\11\3\0\7\11\20\0\12\11\1\0\3\11\3\0"+
-    "\4\11\1\73\2\11\20\0\12\11\1\0\1\64\2\11"+
-    "\3\0\7\11\20\0\5\11\1\74\4\11\1\0\3\11"+
+    "\4\11\1\74\2\11\20\0\12\11\1\0\1\64\2\11"+
+    "\3\0\7\11\20\0\5\11\1\75\4\11\1\0\3\11"+
     "\3\0\7\11\20\0\12\11\1\0\3\11\3\0\6\11"+
-    "\1\75\12\0\4\57\1\56\1\70\42\57\6\0\10\11"+
-    "\1\76\1\11\1\0\3\11\3\0\7\11\20\0\12\11"+
-    "\1\0\3\11\3\0\4\11\1\77\2\11\20\0\12\11"+
-    "\1\0\3\11\3\0\2\11\1\100\4\11\20\0\11\11"+
-    "\1\101\1\0\3\11\3\0\7\11\20\0\12\11\1\0"+
-    "\2\11\1\102\3\0\7\11\20\0\12\11\1\0\3\11"+
-    "\3\0\3\11\1\103\3\11\20\0\12\11\1\104\3\11"+
+    "\1\76\12\0\4\57\1\56\1\71\42\57\6\0\10\11"+
+    "\1\77\1\11\1\0\3\11\3\0\7\11\20\0\12\11"+
+    "\1\0\3\11\3\0\4\11\1\100\2\11\20\0\12\11"+
+    "\1\0\3\11\3\0\2\11\1\101\4\11\20\0\11\11"+
+    "\1\102\1\0\3\11\3\0\7\11\20\0\12\11\1\0"+
+    "\2\11\1\103\3\0\7\11\20\0\12\11\1\0\3\11"+
+    "\3\0\3\11\1\104\3\11\20\0\12\11\1\105\3\11"+
     "\3\0\7\11\20\0\12\11\1\0\3\11\3\0\3\11"+
-    "\1\63\3\11\33\0\1\105\50\0\1\106\50\0\1\107"+
-    "\46\0\1\110\43\0\1\111\50\0\1\112\30\0";
+    "\1\63\3\11\33\0\1\106\50\0\1\107\50\0\1\110"+
+    "\46\0\1\111\43\0\1\112\50\0\1\113\30\0";
 
   private static int [] zzUnpackTrans() {
     int [] result = new int[2160];
@@ -342,10 +343,10 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\1\0\1\11\1\1\1\11\2\1\1\11\20\1\6\11"+
     "\1\1\2\0\4\1\2\11\4\1\2\11\1\1\1\11"+
-    "\2\0\7\1\1\0\13\1\6\0\1\11";
+    "\2\0\10\1\1\0\13\1\6\0\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[74];
+    int [] result = new int[75];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -818,117 +819,122 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
             { System.out.println("ERROR");
             } 
             // fall through
-          case 24: break;
+          case 25: break;
           case 2: 
             { 
             } 
             // fall through
-          case 25: break;
+          case 26: break;
           case 3: 
             { return symbol(sym.ARIT, new String(yytext()));
             } 
             // fall through
-          case 26: break;
+          case 27: break;
           case 4: 
             { return symbol(sym.NUM);
             } 
             // fall through
-          case 27: break;
+          case 28: break;
           case 5: 
             { return symbol(sym.ID, new String(yytext()));
             } 
             // fall through
-          case 28: break;
+          case 29: break;
           case 6: 
-            { return symbol(sym.LOGICOS_U);
+            { return symbol(sym.LOGICOS_U, new String(yytext()));
             } 
             // fall through
-          case 29: break;
+          case 30: break;
           case 7: 
             { return symbol(sym.RELACIONALES, new String(yytext()));
             } 
             // fall through
-          case 30: break;
+          case 31: break;
           case 8: 
             { return symbol(sym.ASIGNACION, new String(yytext()));
             } 
             // fall through
-          case 31: break;
-          case 9: 
-            { return symbol(sym.PUNTOCOMA);
-            } 
-            // fall through
           case 32: break;
-          case 10: 
-            { return symbol(sym.LL_OP);
+          case 9: 
+            { return symbol(sym.PUNTOCOMA , new String(yytext()));
             } 
             // fall through
           case 33: break;
-          case 11: 
-            { return symbol(sym.LL_CL);
+          case 10: 
+            { return symbol(sym.LL_OP, new String(yytext()));
             } 
             // fall through
           case 34: break;
-          case 12: 
-            { return symbol(sym.PAR_OP);
+          case 11: 
+            { return symbol(sym.LL_CL, new String(yytext()));
             } 
             // fall through
           case 35: break;
-          case 13: 
-            { return symbol(sym.PAR_CL);
+          case 12: 
+            { return symbol(sym.PAR_OP, new String(yytext()));
             } 
             // fall through
           case 36: break;
-          case 14: 
-            { return symbol(sym.COMA);
+          case 13: 
+            { return symbol(sym.PAR_CL, new String(yytext()));
             } 
             // fall through
           case 37: break;
+          case 14: 
+            { return symbol(sym.COMA, new String(yytext()));
+            } 
+            // fall through
+          case 38: break;
           case 15: 
             { /*Ignoramos comentarios*/
             } 
             // fall through
-          case 38: break;
-          case 16: 
-            { return symbol(sym.LOGICOS_B);
-            } 
-            // fall through
           case 39: break;
-          case 17: 
-            { return symbol(sym.INCREMENTO);
+          case 16: 
+            { return symbol(sym.LOGICOS_B, new String(yytext()));
             } 
             // fall through
           case 40: break;
-          case 18: 
-            { return symbol(sym.DECREMENTO);
+          case 17: 
+            { return symbol(sym.INCREMENTO, new String(yytext()));
             } 
             // fall through
           case 41: break;
+          case 18: 
+            { return symbol(sym.DECREMENTO, new String(yytext()));
+            } 
+            // fall through
+          case 42: break;
           case 19: 
             { return symbol(sym.TIPOS_VAR, new String(yytext()));
             } 
             // fall through
-          case 42: break;
-          case 20: 
-            { return symbol(sym.BOOLEANOS, new String(yytext()));
-            } 
-            // fall through
           case 43: break;
-          case 21: 
-            { return symbol(sym.TIPOS_METODOS, new String(yytext()));
+          case 20: 
+            { return symbol(sym.FOR, new String(yytext()));
             } 
             // fall through
           case 44: break;
-          case 22: 
-            { return symbol(sym.RETURN, new String(yytext()));
+          case 21: 
+            { return symbol(sym.BOOLEANOS, new String(yytext()));
             } 
             // fall through
           case 45: break;
-          case 23: 
-            { return symbol(sym.BEGIN_METODOS, new String(yytext()));
+          case 22: 
+            { return symbol(sym.TIPOS_METODOS, new String(yytext()));
             } 
             // fall through
           case 46: break;
+          case 23: 
+            { return symbol(sym.RETURN, new String(yytext()));
+            } 
+            // fall through
+          case 47: break;
+          case 24: 
+            { return symbol(sym.BEGIN_METODOS, new String(yytext()));
+            } 
+            // fall through
+          case 48: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

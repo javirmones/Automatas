@@ -58,7 +58,7 @@ PAR_CL = ")"
 %%
     {RELACIONALES} {return symbol(sym.RELACIONALES, new String(yytext()));}
     {RETURN} {return symbol(sym.RETURN, new String(yytext()));} 
-    {FOR} {return symbol(sym.TIPOS_VAR, new String(yytext()));}
+    {FOR} {return symbol(sym.FOR, new String(yytext()));}
     {TIPOS_VAR} {return symbol(sym.TIPOS_VAR, new String(yytext()));}
     {BEGIN_METODOS} {return symbol(sym.BEGIN_METODOS, new String(yytext()));}
     {TIPOS_METODOS} {return symbol(sym.TIPOS_METODOS, new String(yytext()));}
@@ -66,17 +66,17 @@ PAR_CL = ")"
     {RELACIONALES} {return symbol(sym.RELACIONALES, new String(yytext()));}
     {BOOLEANOS} {return symbol(sym.BOOLEANOS, new String(yytext()));}
     {ID} {return symbol(sym.ID, new String(yytext()));}
-    {PUNTOCOMA} {return symbol(sym.PUNTOCOMA);}
+    {PUNTOCOMA} {return symbol(sym.PUNTOCOMA , new String(yytext()));}
     {ASIGNACION} {return symbol(sym.ASIGNACION, new String(yytext()));}
-    {INCREMENTO} {return symbol(sym.INCREMENTO);}
-    {DECREMENTO} {return symbol(sym.DECREMENTO);}
-    {LOGICOS_BINARIOS} {return symbol(sym.LOGICOS_B);}
-    {LOGICOS_UNARIOS} {return symbol(sym.LOGICOS_U);}
-    {LL_OP} {return symbol(sym.LL_OP);}
-    {LL_CL} {return symbol(sym.LL_CL);}
-    {PAR_OP} {return symbol(sym.PAR_OP);}
-    {PAR_CL} {return symbol(sym.PAR_CL);}
-    "," {return symbol(sym.COMA);}
+    {INCREMENTO} {return symbol(sym.INCREMENTO, new String(yytext()));}
+    {DECREMENTO} {return symbol(sym.DECREMENTO, new String(yytext()));}
+    {LOGICOS_BINARIOS} {return symbol(sym.LOGICOS_B, new String(yytext()));}
+    {LOGICOS_UNARIOS} {return symbol(sym.LOGICOS_U, new String(yytext()));}
+    {LL_OP} {return symbol(sym.LL_OP, new String(yytext()));}
+    {LL_CL} {return symbol(sym.LL_CL, new String(yytext()));}
+    {PAR_OP} {return symbol(sym.PAR_OP, new String(yytext()));}
+    {PAR_CL} {return symbol(sym.PAR_CL, new String(yytext()));}
+    "," {return symbol(sym.COMA, new String(yytext()));}
 
     {COMENTARIO} {/*Ignoramos comentarios*/}
     {ESPACIOBLANCO} {}
