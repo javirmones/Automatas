@@ -39,9 +39,9 @@ BEGIN_METODOS = "public static"
 LOGICOS_BINARIOS = "&&" | "||"
 LOGICOS_UNARIOS = "!"
 FOR = "for"
-TIPOS_METODOS = "int" | "boolean" | "void"
+TIPOS_MET = "int" | "boolean" | "void"
 TIPOS_VAR = "int" | "boolean"
-RETURN = "return"
+RETURN = "return";
 BOOLEANOS = "true" | "false"
 ARIT = "*" | "/" | "+" | "-"
 RELACIONALES = "<" | "<=" | ">" | ">=" | "==" | "!="
@@ -56,12 +56,17 @@ PAR_CL = ")"
 
 
 %%
+
+<YYINITIAL>{
     {RELACIONALES} {return symbol(sym.RELACIONALES, new String(yytext()));}
+    "boolean" {return symbol(sym.B, new String(yytext()));}
+    "int" {}
+    "void" {}
     {RETURN} {return symbol(sym.RETURN, new String(yytext()));} 
     {FOR} {return symbol(sym.FOR, new String(yytext()));}
     {TIPOS_VAR} {return symbol(sym.TIPOS_VAR, new String(yytext()));}
     {BEGIN_METODOS} {return symbol(sym.BEGIN_METODOS, new String(yytext()));}
-    {TIPOS_METODOS} {return symbol(sym.TIPOS_METODOS, new String(yytext()));}
+    {TIPOS_MET} {return symbol(sym.TIPOS_MET, new String(yytext()));}
     {ARIT} {return symbol(sym.ARIT, new String(yytext()));}
     {RELACIONALES} {return symbol(sym.RELACIONALES, new String(yytext()));}
     {BOOLEANOS} {return symbol(sym.BOOLEANOS, new String(yytext()));}
@@ -82,7 +87,7 @@ PAR_CL = ")"
     {ESPACIOBLANCO} {}
     {ENTEROS} {return symbol(sym.NUM);}
 
-
+}
 
 [^]   {System.out.println("ERROR");}
 

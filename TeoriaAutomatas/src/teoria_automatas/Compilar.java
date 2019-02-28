@@ -25,8 +25,8 @@ public class Compilar {
         try {
             compilarFlex(rutaCompilar);
             compilarCup(rutaCompilar);
-            ejecutarFlex(rutaFichero);
-            //ejecutarParser(rutaFichero);
+            //ejecutarFlex(rutaFichero);
+            ejecutarParser(rutaFichero);
 
         } catch (IOException ex) {
             Logger.getLogger(Compilar.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,8 +56,8 @@ public class Compilar {
 
     public static void ejecutarParser(String ruta) throws FileNotFoundException {
 
-       // parser parser_obj = new parser(new AnalizadorLexico(new FileReader(ruta)));
-        parser parser_obj = null;
+        parser parser_obj = new parser(new AnalizadorLexico(new FileReader(ruta)));
+
         Symbol parse_tree = null;
 
         try {
@@ -67,8 +67,10 @@ public class Compilar {
                 parse_tree = parser_obj.parse();
             }
         } catch (Exception e) {
-
+            System.out.println("Análisis incorrecto");
+            System.exit(1);
         }
+        System.out.println("Análisis correcto");
     }
 
     public Reader lector(String ruta) {

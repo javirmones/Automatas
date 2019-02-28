@@ -51,9 +51,9 @@ non terminal programa, dec_metodos, metodos, dec_args, cuerpo_metodo, dec_for, d
 dec_for_loop, dec_asigs, dec_call, dec_return, cuerpo_for, for_st_1, for_st_2, for_st_3, init_for, dec_call_args;
 
 
-terminal String LL_OP, LL_CL, FOR ,ID, TIPOS_VAR, RETURN, PUNTOCOMA,
-RELACIONALES, ASIGNACION, INCREMENTO, DECREMENTO, ARIT, PAR_OP, PAR_CL, COMA, NUM,
-BEGIN_METODOS, TIPOS_METODOS, BOOLEANOS, LOGICOS_B, LOGICOS_U;
+terminal String LL_OP, LL_CL, FOR ,ID, TIPOS_VAR, RETURN, PUNTOCOMA, B;
+terminal String RELACIONALES, ASIGNACION, INCREMENTO, DECREMENTO, ARIT, PAR_OP, PAR_CL, COMA, NUM;
+terminal String BEGIN_METODOS, TIPOS_MET, BOOLEANOS, LOGICOS_B, LOGICOS_U;
 
 
 programa ::= dec_metodos ;
@@ -61,13 +61,13 @@ programa ::= dec_metodos ;
 /*Para poder generar los metodos de 1 a N veces*/
 dec_metodos ::= metodos | metodos dec_metodos;
 
-metodos ::= BEGIN_METODOS TIPOS_METODOS ID PAR_OP dec_args PAR_CL LL_OP cuerpo_metodo LL_CL;
+metodos ::= BEGIN_METODOS TIPOS_MET ID PAR_OP dec_args PAR_CL LL_OP cuerpo_metodo LL_CL;
 
 /*Argumentos de los métodos de 1 a N veces*/
 dec_args ::= TIPOS_VAR ID | TIPOS_VAR ID COMA dec_args;
 
 /*El cuerpo de los metodos es lo que queramos meterle dentro*/
-cuerpo_metodo ::= dec_for_loop dec_asigs dec_call_loop dec_ops dec_return;
+cuerpo_metodo ::= ;
 
 /*Repeticiones de for */
 dec_for_loop ::= dec_for | dec_for dec_for_loop;
@@ -86,14 +86,15 @@ for_st_3 ::= ID INCREMENTO | ID DECREMENTO;
 
 cuerpo_for ::= dec_asigs dec_call_loop;
 
-dec_asig_ops ::= ID ASIGNACION ID ARIT ID;
+dec_asig_ops ::= ID ASIGNACION ID ARIT ID PUNTOCOMA;
 
 /* Asignaciones tipo int a = 0;  boolean asdf = true; */
-dec_asigs ::= TIPOS_VAR ID ASIGNACION ID PUNTOCOMA 
+dec_asigs ::= TIPOS_VAR ID ASIGNACION ID PUNTOCOMA
+            | TIPOS_VAR ID PUNTOCOMA
             | TIPOS_VAR ID ASIGNACION BOOLEANOS PUNTOCOMA;
 
 /* Repetir las llamadas a los métodos */
-dec_call_loop ::= dec_call | dec_call dec_call_loop |;
+dec_call_loop ::= dec_call | dec_call dec_call_loop;
 
 /*Aqui pretendo construir sintácticamente las llamadas tipo a = calculo(val) o mostrartal(e, a )*/ 
 dec_call ::= TIPOS_VAR ID ASIGNACION ID PAR_OP dec_call_args PAR_CL PUNTOCOMA 
@@ -108,4 +109,4 @@ no influye que se pueda construir un método void con return ya que eso se compr
 dec_return ::= RETURN ID PUNTOCOMA | RETURN BOOLEANOS PUNTOCOMA | RETURN dec_ops PUNTOCOMA | ;
 
 /*Aqui pretendo implementar operaciones de tipo (x<3) && !true */
-dec_ops ::= NUM ;
+

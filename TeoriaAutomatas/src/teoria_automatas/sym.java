@@ -8,27 +8,28 @@ package teoria_automatas;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int RELACIONALES = 9;
-  public static final int ARIT = 13;
-  public static final int LOGICOS_B = 21;
+  public static final int RELACIONALES = 10;
+  public static final int ARIT = 14;
+  public static final int LOGICOS_B = 22;
   public static final int RETURN = 7;
   public static final int ID = 5;
-  public static final int NUM = 17;
-  public static final int COMA = 16;
-  public static final int ASIGNACION = 10;
-  public static final int TIPOS_METODOS = 19;
+  public static final int NUM = 18;
+  public static final int COMA = 17;
+  public static final int ASIGNACION = 11;
   public static final int EOF = 0;
   public static final int TIPOS_VAR = 6;
-  public static final int BEGIN_METODOS = 18;
-  public static final int INCREMENTO = 11;
+  public static final int B = 9;
+  public static final int BEGIN_METODOS = 19;
+  public static final int INCREMENTO = 12;
   public static final int error = 1;
-  public static final int PAR_CL = 15;
-  public static final int PAR_OP = 14;
-  public static final int LOGICOS_U = 22;
-  public static final int BOOLEANOS = 20;
+  public static final int PAR_CL = 16;
+  public static final int PAR_OP = 15;
+  public static final int LOGICOS_U = 23;
+  public static final int BOOLEANOS = 21;
   public static final int PUNTOCOMA = 8;
-  public static final int DECREMENTO = 12;
+  public static final int DECREMENTO = 13;
   public static final int FOR = 4;
+  public static final int TIPOS_MET = 20;
   public static final int LL_CL = 3;
   public static final int LL_OP = 2;
   public static final String[] terminalNames = new String[] {
@@ -41,6 +42,7 @@ public class sym {
   "TIPOS_VAR",
   "RETURN",
   "PUNTOCOMA",
+  "B",
   "RELACIONALES",
   "ASIGNACION",
   "INCREMENTO",
@@ -51,7 +53,7 @@ public class sym {
   "COMA",
   "NUM",
   "BEGIN_METODOS",
-  "TIPOS_METODOS",
+  "TIPOS_MET",
   "BOOLEANOS",
   "LOGICOS_B",
   "LOGICOS_U"
