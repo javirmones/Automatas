@@ -39,74 +39,97 @@ public void report_error(String message, Object info) {
         System.out.println("Error no recuperable de sintaxis: "+s.value+" Linea "+(s.left+1)+" columna "+(s.right+1) );
     }
 
-
-
 :}
 
 action code {:
 
 :}
 
-non terminal programa, dec_metodos, metodos, dec_args, cuerpo_metodo, dec_for, dec_ops, dec_call_loop, dec_asig_ops,
-dec_for_loop, dec_asigs, dec_call, dec_return, cuerpo_for, for_st_1, for_st_2, for_st_3, init_for, dec_call_args;
+non terminal programa, dec_metodos, metodos, dec_args, cuerpo_metodo, dec_for, dec_ops, type_boolean, for_st_aux;
+non terminal dec_call_loop, dec_asigs_ops, type_methods, type_vars,dec_for_loop, dec_asigs, dec_asigs_aux, dec_call,for_st_arrays;
+non terminal dec_return, cuerpo_for, for_st_1, for_st_2, for_st_3, init_for, dec_call_args, dec_decl;
 
+terminal String LL_OP, LL_CL, FOR ,ID, RETURN, PUNTOCOMA, NUM, PUNTO;
+terminal String RELACIONALES, ASIGNACION, INCREMENT, ARIT, PAR_OP, PAR_CL, COMA;
+terminal String BEGIN_METODOS, LOGICOS_B, LOGICOS_U, BOOLEAN, TRUE, FALSE, INT, VOID;
 
-terminal String LL_OP, LL_CL, FOR ,ID, TIPOS_VAR, RETURN, PUNTOCOMA, B;
-terminal String RELACIONALES, ASIGNACION, INCREMENTO, DECREMENTO, ARIT, PAR_OP, PAR_CL, COMA, NUM;
-terminal String BEGIN_METODOS, TIPOS_MET, BOOLEANOS, LOGICOS_B, LOGICOS_U;
-
-
+/*Inicio de la gramática*/
 programa ::= dec_metodos ;
 
 /*Para poder generar los metodos de 1 a N veces*/
 dec_metodos ::= metodos | metodos dec_metodos;
 
-metodos ::= BEGIN_METODOS TIPOS_MET ID PAR_OP dec_args PAR_CL LL_OP cuerpo_metodo LL_CL;
-
-/*Argumentos de los métodos de 1 a N veces*/
-dec_args ::= TIPOS_VAR ID | TIPOS_VAR ID COMA dec_args;
+/*Declaracion de metodos*/
+metodos ::= BEGIN_METODOS type_methods ID PAR_OP dec_args PAR_CL LL_OP cuerpo_metodo LL_CL;
+            
+/*Argumentos de los métodos de 1 a N veces o ninguna*/
+dec_args ::= type_vars ID | type_vars ID COMA dec_args | ;
 
 /*El cuerpo de los metodos es lo que queramos meterle dentro*/
-cuerpo_metodo ::= ;
+cuerpo_metodo ::= dec_for_loop dec_call dec_return;
 
-/*Repeticiones de for */
-dec_for_loop ::= dec_for | dec_for dec_for_loop;
+/*Repeticiones de for 1 muchas o ninguna*/
+dec_for_loop ::= dec_for | ;
 
-/*Realizamos aqui la declaracion de uno o muchos bucles for*/
-dec_for ::= FOR init_for LL_OP cuerpo_for LL_CL ;
+/*Realizamos aqui la declaracion de uno o muchos bucles for uno dentro de otro*/
+dec_for ::= FOR PAR_OP init_for PAR_CL LL_OP cuerpo_for dec_for LL_CL
+           | FOR PAR_OP init_for PAR_CL LL_OP cuerpo_for LL_CL ;
 
 /*El contenido del bucle (   A  ; B ;  C ) donde A = for_st_1, B = for_st_2 y C = for_st_3 */
-init_for ::= PAR_OP for_st_1 PUNTOCOMA for_st_2 PUNTOCOMA for_st_3 PAR_CL;
+init_for ::= for_st_1 PUNTOCOMA for_st_2 PUNTOCOMA for_st_3 ;
 
-for_st_1 ::= TIPOS_VAR ID ASIGNACION ID | ID ASIGNACION ID;
+for_st_1 ::=  type_vars ID ASIGNACION for_st_aux | ID ASIGNACION for_st_aux ;
 
-for_st_2 ::= ID RELACIONALES ID;
+for_st_aux ::= ID | NUM;
 
-for_st_3 ::= ID INCREMENTO | ID DECREMENTO;
+for_st_2 ::= ID RELACIONALES for_st_arrays;
 
-cuerpo_for ::= dec_asigs dec_call_loop;
+for_st_arrays ::= ID PUNTO ID | ID;
 
-dec_asig_ops ::= ID ASIGNACION ID ARIT ID PUNTOCOMA;
+for_st_3 ::= ID INCREMENT;
 
-/* Asignaciones tipo int a = 0;  boolean asdf = true; */
-dec_asigs ::= TIPOS_VAR ID ASIGNACION ID PUNTOCOMA
-            | TIPOS_VAR ID PUNTOCOMA
-            | TIPOS_VAR ID ASIGNACION BOOLEANOS PUNTOCOMA;
+/* Contenido del bucle for (Hay que meter asignaciones, llamadas y )*/
+cuerpo_for ::=  dec_asigs_ops ;
+
+dec_asigs_ops ::= dec_asigs |  ;
+
+/* SEPARARLO CONFLICTOS Asignaciones, declaraciones to padentro tipo int a = 0;  boolean asdf = true; o int a;*/
+dec_asigs ::= type_vars ID ASIGNACION dec_asigs_aux PUNTOCOMA
+              | type_vars ID PUNTOCOMA
+              | ID ASIGNACION ID PUNTOCOMA
+              | type_vars ID ASIGNACION ID PUNTOCOMA
+              | ID ASIGNACION dec_asigs_aux PUNTOCOMA
+              | type_vars ID ASIGNACION dec_asigs_aux PUNTOCOMA dec_asigs
+              | type_vars ID PUNTOCOMA dec_asigs
+              | ID ASIGNACION dec_asigs_aux dec_asigs
+              | ID ASIGNACION ID PUNTOCOMA dec_asigs
+              | type_vars ID ASIGNACION ID PUNTOCOMA dec_asigs;
+
+dec_decl ::= ;        
+
 
 /* Repetir las llamadas a los métodos */
-dec_call_loop ::= dec_call | dec_call dec_call_loop;
+
 
 /*Aqui pretendo construir sintácticamente las llamadas tipo a = calculo(val) o mostrartal(e, a )*/ 
-dec_call ::= TIPOS_VAR ID ASIGNACION ID PAR_OP dec_call_args PAR_CL PUNTOCOMA 
-            |  ID ASIGNACION ID PAR_OP dec_call_args PAR_CL PUNTOCOMA
-            |  ID PAR_OP dec_call_args PAR_CL PUNTOCOMA ;
+dec_call ::= ID PAR_OP dec_call_args PAR_CL PUNTOCOMA |  ;
 
-/* Construcciones de variables */
-dec_call_args ::= ID | ID COMA dec_call_args; 
+/* Construcciones de argumentos de llamadas a metodos a, b, c o a o lambda*/
+dec_call_args ::= ID | ID COMA dec_call_args | ; 
 
 /*Aqui pretendo construir la finalización de los metodos que puedan retornar, sintácticamente
 no influye que se pueda construir un método void con return ya que eso se comprueba en el  A. semántico*/
-dec_return ::= RETURN ID PUNTOCOMA | RETURN BOOLEANOS PUNTOCOMA | RETURN dec_ops PUNTOCOMA | ;
+dec_return ::= RETURN ID PUNTOCOMA | RETURN type_boolean PUNTOCOMA | RETURN dec_ops PUNTOCOMA | ;
 
 /*Aqui pretendo implementar operaciones de tipo (x<3) && !true */
+dec_ops ::=;
 
+/*Estructura de símbolos terminales */
+
+type_methods ::= INT | BOOLEAN | VOID;
+
+type_vars ::= INT | BOOLEAN;
+
+type_boolean ::= TRUE | FALSE;
+
+dec_asigs_aux ::= NUM | type_boolean;
