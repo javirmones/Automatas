@@ -1,0 +1,58 @@
+
+\section{Análisis sintáctico}
+Las principales funciones del analizador sintáctico son las siguientes:
+\begin{itemize}
+	\item Analizar la secuencia de \textbf{tokens} y verificar si son correctos sintácticamente.
+	\item Obtener una representación interna del texto.
+	\item Informar de los errores sintácticos detectados.
+\end{itemize}
+En resumen, dada una secuencia de \textbf{tokens} obtenida como resultado de la fase de análisis léxico, se comprueba que dicha secuencia está escrita correctamente y se obtiene una representación interna de la misma, que servirá como entrada para el Análisis semántico. 
+\newline
+\newline
+Existen dos estrategias en el \textit{Análisis sintáctico}
+\begin{itemize}
+	\item Análisis sintáctico ascendente
+	\item Análisis sintáctico descendente
+\end{itemize}
+
+
+\subsection{Análisis sintáctico ascendente}
+CUP significa Construcción de analizadores útiles y es un generador de analizadores LALR para Java. Fue desarrollado por C. Scott Ananian, Frank Flannery, Dan Wang, Andrew W. Appel y Michael Petter. Implementa la generación de analizadores LALR(1) estándar. 
+
+La estrategia del análisis sintáctico ascendente funciona construyendo el árbol sintáctico desde las hojas hasta la raíz. Se busca en la cadena de tokens una subcadena que pueda ser reducida a uno de los símbolos no terminales que forman la gramática.
+
+El analizador LALR(1) nace de la simplificación de estados del analizador LR(1). No se entra en detalle de la construcción del AFD reconocedor de prefijos viables ni del analizador sintáctico LR(1) ya que la herramienta Cup realiza el proceso de simplificación de forma autónoma, así como la inclusión de marcadores.
+
+\subsection{Control de errores sintácticos en Cup}
+
+Para controlar los errores sintácticos en Cup se han utilizado producciones de error. Las producciones de error utilizan un símbolo terminal error que pertenece a la clase \textit{Symbol} propia de CUP.\newline
+De tal manera que cuando se produce una reducción al mismo, se invoca a una rutina de error asociada a este símbolo. En esta rutina de error, se invoca al método report\_error de la clase \textit{Parser}.
+
+En la sección \textit{Cup} puede ver el código asociado a esta fase de la construcción del procesador de lenguajes.
+\clearpage
+
+
+\subsection{Cup}
+
+En esta sección se muestran tanto las producciones asociadas a la gramática y utilizadas para realizar el análisis sintáctico, como las reglas semánticas asociadas a cada producción; que permiten el análisis semántico. 
+
+\begin{lstlisting}[caption=Analizador Sintáctico y Semántico en CUP]
+
+Meter el codigo gramatica
+
+
+\end{lstlisting}
+
+\section{Analizador semántico}
+
+El analizador semántico tiene varias funciones:
+
+\begin{itemize}
+	\item Dar significado a las construcciones del lenguaje fuente. 
+	\item Generación de código.
+	\item Acabar de completar el lenguaje fuente.
+\end{itemize}
+
+\subsection{Generación de código en análisis ascendente}
+
+SI LO HUBIERA

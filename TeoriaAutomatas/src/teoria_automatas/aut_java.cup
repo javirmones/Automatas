@@ -49,7 +49,7 @@ non terminal programa, dec_metodos, metodos, dec_args, cuerpo_metodo, dec_for, d
 non terminal dec_call_loop, dec_asigs_ops, type_methods, type_vars,dec_for_loop, dec_asigs, dec_asigs_aux, dec_call,for_st_arrays;
 non terminal dec_return, cuerpo_for, for_st_1, for_st_2, for_st_3, init_for, dec_call_args, dec_decl;
 
-terminal String LL_OP, LL_CL, FOR ,ID, RETURN, PUNTOCOMA, NUM, PUNTO;
+terminal String LL_OP, LL_CL, FOR ,ID, RETURN, PUNTOCOMA, NUM, PUNTO, NULL;
 terminal String RELACIONALES, ASIGNACION, INCREMENT, ARIT, PAR_OP, PAR_CL, COMA;
 terminal String BEGIN_METODOS, LOGICOS_B, LOGICOS_U, BOOLEAN, TRUE, FALSE, INT, VOID;
 

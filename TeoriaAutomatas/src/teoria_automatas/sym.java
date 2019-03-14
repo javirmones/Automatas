@@ -8,29 +8,30 @@ package teoria_automatas;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int RELACIONALES = 10;
+  public static final int RELACIONALES = 11;
   public static final int PUNTO = 9;
-  public static final int ARIT = 13;
-  public static final int INT = 23;
-  public static final int LOGICOS_B = 18;
+  public static final int ARIT = 14;
+  public static final int INT = 24;
+  public static final int LOGICOS_B = 19;
   public static final int RETURN = 6;
-  public static final int TRUE = 21;
+  public static final int TRUE = 22;
   public static final int ID = 5;
   public static final int NUM = 8;
-  public static final int BOOLEAN = 20;
-  public static final int COMA = 16;
-  public static final int ASIGNACION = 11;
+  public static final int BOOLEAN = 21;
+  public static final int COMA = 17;
+  public static final int ASIGNACION = 12;
   public static final int EOF = 0;
-  public static final int INCREMENT = 12;
-  public static final int BEGIN_METODOS = 17;
-  public static final int FALSE = 22;
+  public static final int INCREMENT = 13;
+  public static final int BEGIN_METODOS = 18;
+  public static final int FALSE = 23;
   public static final int error = 1;
-  public static final int PAR_CL = 15;
-  public static final int PAR_OP = 14;
-  public static final int LOGICOS_U = 19;
+  public static final int PAR_CL = 16;
+  public static final int PAR_OP = 15;
+  public static final int LOGICOS_U = 20;
   public static final int PUNTOCOMA = 7;
   public static final int FOR = 4;
-  public static final int VOID = 24;
+  public static final int NULL = 10;
+  public static final int VOID = 25;
   public static final int LL_CL = 3;
   public static final int LL_OP = 2;
   public static final String[] terminalNames = new String[] {
@@ -44,6 +45,7 @@ public class sym {
   "PUNTOCOMA",
   "NUM",
   "PUNTO",
+  "NULL",
   "RELACIONALES",
   "ASIGNACION",
   "INCREMENT",

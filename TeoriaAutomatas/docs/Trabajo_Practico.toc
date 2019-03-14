@@ -2,15 +2,8 @@
 \contentsline {section}{\numberline {1}Introducci\IeC {\'o}n}{3}{section.1}
 \contentsline {section}{\numberline {2}Descripci\IeC {\'o}n del problema}{3}{section.2}
 \contentsline {section}{\numberline {3}Soluci\IeC {\'o}n propuesta}{3}{section.3}
-\contentsline {section}{\numberline {4}Dise\IeC {\~n}o del sistema}{3}{section.4}
+\contentsline {section}{\numberline {4}Dise\IeC {\~n}o del sistema}{4}{section.4}
 \contentsline {subsection}{\numberline {4.1}Lenguaje fuente}{4}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Tabla de tokens}{4}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}EBNF}{5}{subsection.4.3}
-\contentsline {section}{\numberline {5}An\IeC {\'a}lisis l\IeC {\'e}xico}{6}{section.5}
+\contentsline {subsection}{\numberline {4.2}Tabla de tokens}{5}{subsection.4.2}
+\contentsline {section}{\numberline {5}An\IeC {\'a}lisis l\IeC {\'e}xico}{5}{section.5}
 \contentsline {subsection}{\numberline {5.1}JFlex}{6}{subsection.5.1}
-\contentsline {section}{\numberline {6}An\IeC {\'a}lisis sint\IeC {\'a}ctico}{6}{section.6}
-\contentsline {subsection}{\numberline {6.1}An\IeC {\'a}lisis sint\IeC {\'a}ctico ascendente}{7}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Control de errores sint\IeC {\'a}cticos en Cup}{7}{subsection.6.2}
-\contentsline {subsection}{\numberline {6.3}Cup}{8}{subsection.6.3}
-\contentsline {section}{\numberline {7}Analizador sem\IeC {\'a}ntico}{8}{section.7}
-\contentsline {subsection}{\numberline {7.1}Generaci\IeC {\'o}n de c\IeC {\'o}digo en an\IeC {\'a}lisis ascendente}{8}{subsection.7.1}

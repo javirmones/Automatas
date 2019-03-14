@@ -4,12 +4,5 @@
 \BOOKMARK [1][-]{section.4}{Dise\361o del sistema}{}% 4
 \BOOKMARK [2][-]{subsection.4.1}{Lenguaje fuente}{section.4}% 5
 \BOOKMARK [2][-]{subsection.4.2}{Tabla de tokens}{section.4}% 6
-\BOOKMARK [2][-]{subsection.4.3}{EBNF}{section.4}% 7
-\BOOKMARK [1][-]{section.5}{An\341lisis l\351xico}{}% 8
-\BOOKMARK [2][-]{subsection.5.1}{JFlex}{section.5}% 9
-\BOOKMARK [1][-]{section.6}{An\341lisis sint\341ctico}{}% 10
-\BOOKMARK [2][-]{subsection.6.1}{An\341lisis sint\341ctico ascendente}{section.6}% 11
-\BOOKMARK [2][-]{subsection.6.2}{Control de errores sint\341cticos en Cup}{section.6}% 12
-\BOOKMARK [2][-]{subsection.6.3}{Cup}{section.6}% 13
-\BOOKMARK [1][-]{section.7}{Analizador sem\341ntico}{}% 14
-\BOOKMARK [2][-]{subsection.7.1}{Generaci\363n de c\363digo en an\341lisis ascendente}{section.7}% 15
+\BOOKMARK [1][-]{section.5}{An\341lisis l\351xico}{}% 7
+\BOOKMARK [2][-]{subsection.5.1}{JFlex}{section.5}% 8

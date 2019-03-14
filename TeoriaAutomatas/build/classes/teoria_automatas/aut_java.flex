@@ -42,7 +42,7 @@ NUM = 0 | [1-9][0-9]*
 
 
 %%
-
+    "null" {return symbol(sym.NULL, new String(yytext()));} 
     "return" {return symbol(sym.RETURN, new String(yytext()));} 
     "for" {return symbol(sym.FOR, new String(yytext()));}
     "int" {return symbol(sym.INT, new String(yytext()));}

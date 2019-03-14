@@ -1,0 +1,51 @@
+\subsection{EBNF}
+HABLAR DE LA NOTACION EXTENDED BACKUS NAUR FORM poner la gramática nueva
+Por último, en la siguiente figura puede ver una representación de la gramática del lenguaje en EBNF.
+
+			\begin{center}
+			\begin{tabular}{lcl}
+	
+
+				PROGRAMA & ::= & DEC$\_$COMP AUTOMATA $\{$AUTOMATA$\}$ \\ 
+				 
+				
+				DEC$\_$COMP & ::= &CMP  CODIGO $\{$ CMP CODIGO $\}$ \\ 
+			
+				CODIGO 	&::= &'$\#$' ASCII '$\#$' \\ 
+				
+				AUTOMATA & ::= & \textbf{moore} ID CUERPO$\_$AUTOMATA \\
+				
+			
+				CUERPO$\_$AUTOMATA	& ::= & $'\{'$ ESTADOS ESTADO$\_$INI ALF$\_$IN  \\ 
+				
+					& &  ALF$\_$OUT TRANSICION COMPORTAMIENTOS $'\}'$ \\ 
+				
+				ESTADOS	& ::= &   \textbf{estados} $\{$ ID ',' $\}$ ID ';'\\ 
+				
+				 ESTADO$\_$INI &::= & \textbf{estado$\_$in} ID ';'\\ 
+				 
+				ALF$\_$IN &::= & \textbf{alf$\_$in}  $\{$ EVENTOS ',' $\}$ EVENTOS ';' \\ 
+				
+				ALF$\_$OUT & ::= &\textbf{alf$\_$out}  $\{$ CMP ',' $\}$ CMP ';'  \\ 
+				
+				TRANSICION 	 & ::= & \textbf{transicion} $'\{'$ TRANSICION$\_$DEF $\{$ ',' TRANSICION$\_$DEF  $\}$ ';' $'\}'$ \\ 
+				
+				TRANSICION$\_$DEF & ::= & '(' ID ',' ID ',' ID ')' \\ 
+			
+				
+				COMPORTAMIENTOS	 & ::= &  \textbf{comportamientos} $'\{'$ COMP$\_$DEF $\{$ ',' COMP$\_$DEF $\}$ ';' $'\}'$\\ 
+				
+				COMP$\_$DEF &  ::= & '(' ID ',' ID ',' ID ')' \\ 
+				
+				
+				CMP  & ::= & 'c'NUMEROS \\ 
+				
+				NUMEROS &::= & 0 | 1 | .. | 9 \\ 
+				
+				COMENTARIOS & ::=  & $'/\ast'$ ASCII $'\ast/'$ \\
+				
+				
+			\end{tabular} 	
+		\end{center}
+	
+	\clearpage
