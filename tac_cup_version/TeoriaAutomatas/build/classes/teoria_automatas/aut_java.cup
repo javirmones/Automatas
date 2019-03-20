@@ -10,7 +10,6 @@ parser code {:
 
 public void report_error(String message, Object info) {
 
-/*Parafernalia de pepe castro para pillar errores....*/
         StringBuffer m = new StringBuffer("Error");
 
         if (info instanceof java_cup.runtime.Symbol) {
@@ -46,12 +45,22 @@ action code {:
 :}
 
 non terminal programa, dec_metodos, metodos, dec_args, cuerpo_metodo, dec_for, dec_ops, type_boolean, for_st_aux;
-non terminal dec_call_loop, dec_asigs_ops, type_methods, type_vars,dec_for_loop, dec_asigs, dec_asigs_aux, dec_call,for_st_arrays;
-non terminal dec_return, cuerpo_for, for_st_1, for_st_2, for_st_3, init_for, dec_call_args, dec_decl;
+non terminal dec_asigs_ops, type_methods, type_vars,dec_for_loop, dec_asigs, dec_asigs_aux, dec_call,for_st_arrays, dec_exp;
+non terminal dec_return, cuerpo_for, for_st_1, for_st_2, for_st_3, init_for, dec_call_args, dec_asignaciones, dec_call_ops, type_ops;
 
-terminal String LL_OP, LL_CL, FOR ,ID, RETURN, PUNTOCOMA, NUM, PUNTO, NULL;
-terminal String RELACIONALES, ASIGNACION, INCREMENT, ARIT, PAR_OP, PAR_CL, COMA;
+terminal String LL_OP, LL_CL, FOR ,ID, RETURN, PUNTOCOMA, NUM, PUNTO, NULL, OR, DISTINTO;
+terminal String RELACIONALES, ASIGNACION, INCREMENT, PAR_OP, PAR_CL, COMA, POR, DIV, MENOS, MAS;
 terminal String BEGIN_METODOS, LOGICOS_B, LOGICOS_U, BOOLEAN, TRUE, FALSE, INT, VOID;
+
+precedence left MENOS;
+precedence left MAS;
+precedence left POR;
+precedence right DIV;
+precedence right RELACIONALES;
+precedence right DISTINTO;
+precedence right LOGICOS_B;
+precedence right OR;
+precedence right LOGICOS_U;
 
 /*Inicio de la gramática*/
 programa ::= dec_metodos ;
@@ -66,7 +75,8 @@ metodos ::= BEGIN_METODOS type_methods ID PAR_OP dec_args PAR_CL LL_OP cuerpo_me
 dec_args ::= type_vars ID | type_vars ID COMA dec_args | ;
 
 /*El cuerpo de los metodos es lo que queramos meterle dentro*/
-cuerpo_metodo ::= dec_for_loop dec_call dec_return;
+cuerpo_metodo ::= dec_asigs_ops dec_for_loop dec_call_ops dec_return;
+       
 
 /*Repeticiones de for 1 muchas o ninguna*/
 dec_for_loop ::= dec_for | ;
@@ -89,40 +99,56 @@ for_st_arrays ::= ID PUNTO ID | ID;
 for_st_3 ::= ID INCREMENT;
 
 /* Contenido del bucle for (Hay que meter asignaciones, llamadas y )*/
-cuerpo_for ::=  dec_asigs_ops ;
+cuerpo_for ::= dec_asigs_ops type_ops;
 
-dec_asigs_ops ::= dec_asigs |  ;
-
-/* SEPARARLO CONFLICTOS Asignaciones, declaraciones to padentro tipo int a = 0;  boolean asdf = true; o int a;*/
-dec_asigs ::= type_vars ID ASIGNACION dec_asigs_aux PUNTOCOMA
-              | type_vars ID PUNTOCOMA
-              | ID ASIGNACION ID PUNTOCOMA
-              | type_vars ID ASIGNACION ID PUNTOCOMA
-              | ID ASIGNACION dec_asigs_aux PUNTOCOMA
-              | type_vars ID ASIGNACION dec_asigs_aux PUNTOCOMA dec_asigs
-              | type_vars ID PUNTOCOMA dec_asigs
-              | ID ASIGNACION dec_asigs_aux dec_asigs
-              | ID ASIGNACION ID PUNTOCOMA dec_asigs
-              | type_vars ID ASIGNACION ID PUNTOCOMA dec_asigs;
-
-dec_decl ::= ;        
+/* Asignaciones, declaraciones to padentro tipo int a = 0;  boolean asdf = true; o int a; */
+dec_asigs_ops ::= dec_asigs dec_asigs_ops |  ;
 
 
-/* Repetir las llamadas a los métodos */
+dec_asigs ::= type_vars ID dec_asignaciones
+                | type_vars dec_call_args PUNTOCOMA;
 
+dec_asignaciones ::= ASIGNACION dec_asigs_aux PUNTOCOMA
+                | ASIGNACION ID PUNTOCOMA 
+                | ASIGNACION ID dec_call;
 
 /*Aqui pretendo construir sintácticamente las llamadas tipo a = calculo(val) o mostrartal(e, a )*/ 
-dec_call ::= ID PAR_OP dec_call_args PAR_CL PUNTOCOMA |  ;
+dec_call_ops ::= dec_call dec_call_ops | ;
 
+
+dec_call ::=  ID PAR_OP dec_call_args PAR_CL PUNTOCOMA 
+             | PAR_OP dec_call_args PAR_CL PUNTOCOMA 
+             | ID dec_asignaciones;
+
+          
 /* Construcciones de argumentos de llamadas a metodos a, b, c o a o lambda*/
 dec_call_args ::= ID | ID COMA dec_call_args | ; 
 
+
 /*Aqui pretendo construir la finalización de los metodos que puedan retornar, sintácticamente
 no influye que se pueda construir un método void con return ya que eso se comprueba en el  A. semántico*/
-dec_return ::= RETURN ID PUNTOCOMA | RETURN type_boolean PUNTOCOMA | RETURN dec_ops PUNTOCOMA | ;
+dec_return ::= RETURN dec_ops | ;
+
+
 
 /*Aqui pretendo implementar operaciones de tipo (x<3) && !true */
-dec_ops ::=;
+dec_ops ::= dec_exp PUNTOCOMA ; 
+
+type_ops ::= dec_exp PUNTOCOMA | ;
+
+dec_exp ::= NUM
+            | ID
+            | type_boolean
+            | LOGICOS_U dec_exp
+            | dec_exp MAS dec_exp
+            | dec_exp POR dec_exp
+            | dec_exp DIV dec_exp
+            | dec_exp MENOS dec_exp
+            | dec_exp RELACIONALES dec_exp
+            | dec_exp LOGICOS_B dec_exp
+            | dec_exp DISTINTO dec_exp
+            | dec_exp OR dec_exp
+            | PAR_OP dec_exp PAR_CL;
 
 /*Estructura de símbolos terminales */
 
@@ -130,6 +156,7 @@ type_methods ::= INT | BOOLEAN | VOID;
 
 type_vars ::= INT | BOOLEAN;
 
+dec_asigs_aux ::= NUM | type_boolean;
+
 type_boolean ::= TRUE | FALSE;
 
-dec_asigs_aux ::= NUM | type_boolean;

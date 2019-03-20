@@ -33,15 +33,18 @@ COMENTARIO = {COMENTARIOT} | {FINLINEACOMENT}
 COMENTARIOT = "/*" [^*] ~"*/" | "*/" "*"+ "/";
 FINLINEACOMENT = "//" {CARACTERIN}* {TERMINAR_LINEA}?
 ID = [a-zA-Z][a-zA-Z0-9"_""-"]*
-LOGICOS_BINARIOS = "&&" | "||";
-ARIT = "*" | "/" | "+" | "-";
-RELACIONALES = "<" | "<=" | ">" | ">=" | "==" | "!=";
+LOGICOS_BINARIOS = "&&"
+RELACIONALES = "<" | "<=" | ">" | ">=" | "==";
 ASIGNACION = "="
 INCREMENT = "++" | "--";
 NUM = 0 | [1-9][0-9]*
 
 
 %%
+    "*" {return symbol(sym.POR, new String(yytext()));} 
+    "/" {return symbol(sym.DIV, new String(yytext()));} 
+    "-" {return symbol(sym.MENOS, new String(yytext()));} 
+    "+" {return symbol(sym.MAS, new String(yytext()));}  
     "null" {return symbol(sym.NULL, new String(yytext()));} 
     "return" {return symbol(sym.RETURN, new String(yytext()));} 
     "for" {return symbol(sym.FOR, new String(yytext()));}
@@ -51,19 +54,20 @@ NUM = 0 | [1-9][0-9]*
     "public static" {return symbol(sym.BEGIN_METODOS, new String(yytext()));}
     "true"  {return symbol(sym.TRUE, new String(yytext()));}
     "false" {return symbol(sym.FALSE, new String(yytext()));}
-    {ARIT} {return symbol(sym.ARIT, new String(yytext()));}
     {RELACIONALES} {return symbol(sym.RELACIONALES, new String(yytext()));}
     ";" {return symbol(sym.PUNTOCOMA , new String(yytext()));}
     {ASIGNACION} {return symbol(sym.ASIGNACION, new String(yytext()));}
     {INCREMENT} {return symbol(sym.INCREMENT, new String(yytext()));}
     {LOGICOS_BINARIOS} {return symbol(sym.LOGICOS_B, new String(yytext()));}
     "!" {return symbol(sym.LOGICOS_U, new String(yytext()));}
+    "!=" {return symbol(sym.DISTINTO, new String(yytext()));}
     "{" {return symbol(sym.LL_OP, new String(yytext()));}
     "}" {return symbol(sym.LL_CL, new String(yytext()));}
     "(" {return symbol(sym.PAR_OP, new String(yytext()));}
     ")" {return symbol(sym.PAR_CL, new String(yytext()));}
     "," {return symbol(sym.COMA, new String(yytext()));}
     "." {return symbol(sym.PUNTO, new String(yytext()));}
+    "||" {return symbol(sym.OR, new String(yytext()));}
     {ID} {return symbol(sym.ID, new String(yytext()));}
     {COMENTARIO} {/*Ignoramos comentarios*/}
     {ESPACIOBLANCO} {}
