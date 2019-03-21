@@ -1,7 +1,7 @@
 
 
 public static void comparar( int a, boolean b) {
-    int aux = 1;
+    int aux;
 
     for( int i = 0; i < array.length ; i++ ) {
         for( int j = 0 ; j < array.length; j++) {
