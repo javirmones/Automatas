@@ -13,8 +13,6 @@ import java_cup.runtime.Symbol;
 %line
 %column
 
-//Declaraciones
-
 %{
 
     private Symbol symbol(int type) {
@@ -34,9 +32,8 @@ COMENTARIOT = "/*" [^*] ~"*/" | "*/" "*"+ "/";
 FINLINEACOMENT = "//" {CARACTERIN}* {TERMINAR_LINEA}?
 ID = [a-zA-Z][a-zA-Z0-9"_""-"]*
 LOGICOS_BINARIOS = "&&"
-RELACIONALES = "<" | "<=" | ">" | ">=" | "==";
+RELACIONALES = "<" | "<=" | ">" | ">=" | "=="
 ASIGNACION = "="
-INCREMENT = "++" | "--";
 NUM = 0 | [1-9][0-9]*
 
 
@@ -45,7 +42,6 @@ NUM = 0 | [1-9][0-9]*
     "/" {return symbol(sym.DIV, new String(yytext()));} 
     "-" {return symbol(sym.MENOS, new String(yytext()));} 
     "+" {return symbol(sym.MAS, new String(yytext()));}  
-    "null" {return symbol(sym.NULL, new String(yytext()));} 
     "return" {return symbol(sym.RETURN, new String(yytext()));} 
     "for" {return symbol(sym.FOR, new String(yytext()));}
     "int" {return symbol(sym.INT, new String(yytext()));}
@@ -57,7 +53,7 @@ NUM = 0 | [1-9][0-9]*
     {RELACIONALES} {return symbol(sym.RELACIONALES, new String(yytext()));}
     ";" {return symbol(sym.PUNTOCOMA , new String(yytext()));}
     {ASIGNACION} {return symbol(sym.ASIGNACION, new String(yytext()));}
-    {INCREMENT} {return symbol(sym.INCREMENT, new String(yytext()));}
+    "++" {return symbol(sym.INCREMENT, new String(yytext()));}
     {LOGICOS_BINARIOS} {return symbol(sym.LOGICOS_B, new String(yytext()));}
     "!" {return symbol(sym.LOGICOS_U, new String(yytext()));}
     "!=" {return symbol(sym.DISTINTO, new String(yytext()));}
@@ -70,9 +66,8 @@ NUM = 0 | [1-9][0-9]*
     "||" {return symbol(sym.OR, new String(yytext()));}
     {ID} {return symbol(sym.ID, new String(yytext()));}
     {COMENTARIO} {/*Ignoramos comentarios*/}
-    {ESPACIOBLANCO} {}
+    {ESPACIOBLANCO} {/*Ignoramos espacios en blanco*/}
     {NUM} {return symbol(sym.NUM, new String(yytext()));}
-
     [^]   {System.out.println("Error lexico" +yytext());}
 
 

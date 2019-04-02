@@ -65,10 +65,10 @@ public class Compilar {
                 parse_tree = parser_obj.debug_parse();
             } else {
                 parse_tree = parser_obj.parse();
+
             }
         } catch (Exception e) {
-            System.out.println("Análisis incorrecto");
-            System.exit(1);
+
         }
         System.out.println("Análisis correcto");
     }

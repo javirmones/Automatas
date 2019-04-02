@@ -1,14 +1,20 @@
 
 
 public static void comparar( int a, boolean b) {
-    int aux;
 
-    for( int i = 0; i < array.length ; i++ ) {
-        for( int j = 0 ; j < array.length; j++) {
+    int c;
+    for( int i = 0; i < array.length ; i--) {
+        for( int i = 0; i <= array.length; j++) {
 
         }
     }
+   
+}
+
+public static void hola(int b, int c) {
+    
+    int hola;
+  
 
 
-    return ((2<5*2) || (aux<1)) && true;
 }

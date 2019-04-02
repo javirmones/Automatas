@@ -12,8 +12,9 @@ public class sym {
   public static final int MENOS = 21;
   public static final int PUNTO = 9;
   public static final int INT = 29;
-  public static final int OR = 11;
+  public static final int OR = 10;
   public static final int LOGICOS_B = 24;
+  public static final int MENOSMENOS = 31;
   public static final int RETURN = 6;
   public static final int TRUE = 27;
   public static final int POR = 19;
@@ -22,7 +23,7 @@ public class sym {
   public static final int BOOLEAN = 26;
   public static final int COMA = 18;
   public static final int ASIGNACION = 14;
-  public static final int DISTINTO = 12;
+  public static final int DISTINTO = 11;
   public static final int EOF = 0;
   public static final int DIV = 20;
   public static final int INCREMENT = 15;
@@ -30,11 +31,11 @@ public class sym {
   public static final int FALSE = 28;
   public static final int PAR_CL = 17;
   public static final int error = 1;
+  public static final int DECREMENTAR = 12;
   public static final int PAR_OP = 16;
   public static final int LOGICOS_U = 25;
   public static final int PUNTOCOMA = 7;
   public static final int FOR = 4;
-  public static final int NULL = 10;
   public static final int VOID = 30;
   public static final int MAS = 22;
   public static final int LL_CL = 3;
@@ -50,9 +51,9 @@ public class sym {
   "PUNTOCOMA",
   "NUM",
   "PUNTO",
-  "NULL",
   "OR",
   "DISTINTO",
+  "DECREMENTAR",
   "RELACIONALES",
   "ASIGNACION",
   "INCREMENT",
@@ -70,7 +71,8 @@ public class sym {
   "TRUE",
   "FALSE",
   "INT",
-  "VOID"
+  "VOID",
+  "MENOSMENOS"
   };
 }
 
