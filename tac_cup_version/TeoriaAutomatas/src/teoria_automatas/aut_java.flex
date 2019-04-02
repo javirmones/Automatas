@@ -54,6 +54,7 @@ NUM = 0 | [1-9][0-9]*
     ";" {return symbol(sym.PUNTOCOMA , new String(yytext()));}
     {ASIGNACION} {return symbol(sym.ASIGNACION, new String(yytext()));}
     "++" {return symbol(sym.INCREMENT, new String(yytext()));}
+    "--" {return symbol(sym.DECREMENT, new String(yytext()));}
     {LOGICOS_BINARIOS} {return symbol(sym.LOGICOS_B, new String(yytext()));}
     "!" {return symbol(sym.LOGICOS_U, new String(yytext()));}
     "!=" {return symbol(sym.DISTINTO, new String(yytext()));}

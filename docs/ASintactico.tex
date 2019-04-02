@@ -17,42 +17,175 @@ Existen dos estrategias en el \textit{Análisis sintáctico}
 
 
 \subsection{Análisis sintáctico ascendente}
-CUP significa Construcción de analizadores útiles y es un generador de analizadores LALR para Java. Fue desarrollado por C. Scott Ananian, Frank Flannery, Dan Wang, Andrew W. Appel y Michael Petter. Implementa la generación de analizadores LALR(1) estándar. 
-
+ CUP o (\textit{Construction of Useful Parsers}) \cite{cup} es un generador de analizadores LALR para Java. Fue desarrollado por C. Scott Ananian, Frank Flannery, Dan Wang, Andrew W. Appel y Michael Petter. Implementa la generación de analizadores LALR(1) estándar. 
+\newline\newline
 La estrategia del análisis sintáctico ascendente funciona construyendo el árbol sintáctico desde las hojas hasta la raíz. Se busca en la cadena de tokens una subcadena que pueda ser reducida a uno de los símbolos no terminales que forman la gramática.
-
-El analizador LALR(1) nace de la simplificación de estados del analizador LR(1). No se entra en detalle de la construcción del AFD reconocedor de prefijos viables ni del analizador sintáctico LR(1) ya que la herramienta Cup realiza el proceso de simplificación de forma autónoma, así como la inclusión de marcadores.
-
-\subsection{Control de errores sintácticos en Cup}
-
-Para controlar los errores sintácticos en Cup se han utilizado producciones de error. Las producciones de error utilizan un símbolo terminal error que pertenece a la clase \textit{Symbol} propia de CUP.\newline
-De tal manera que cuando se produce una reducción al mismo, se invoca a una rutina de error asociada a este símbolo. En esta rutina de error, se invoca al método report\_error de la clase \textit{Parser}.
-
-En la sección \textit{Cup} puede ver el código asociado a esta fase de la construcción del procesador de lenguajes.
-\clearpage
-
+\newline\newline
+El analizador LALR(1) nace de la simplificación de estados del analizador LR(1). No se entra en detalle de la construcción del AFD reconocedor de prefijos viables ni del analizador sintáctico LR(1) ya que la herramienta CUP realiza el proceso de simplificación de forma autónoma, así como la inclusión de marcadores.
 
 \subsection{Cup}
 
-En esta sección se muestran tanto las producciones asociadas a la gramática y utilizadas para realizar el análisis sintáctico, como las reglas semánticas asociadas a cada producción; que permiten el análisis semántico. 
+En esta sección se muestran tanto las producciones asociadas a la gramática y utilizadas para realizar el análisis sintáctico. 
 
 \begin{lstlisting}[caption=Analizador Sintáctico y Semántico en CUP]
 
-Meter el codigo gramatica
+package teoria_automatas;
+
+import java.io.*;
+import java_cup.runtime.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
 
 
-\end{lstlisting}
+parser code {:
 
-\section{Analizador semántico}
+public void report_error(String message, Object info) {
 
-El analizador semántico tiene varias funciones:
+StringBuffer m = new StringBuffer("Error");
 
-\begin{itemize}
-	\item Dar significado a las construcciones del lenguaje fuente. 
-	\item Generación de código.
-	\item Acabar de completar el lenguaje fuente.
-\end{itemize}
+if (info instanceof java_cup.runtime.Symbol) {
+java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+if (s.left >= 0) {                
+m.append(" en la linea "+(s.left+1));   
+if (s.right >= 0)                    
+m.append(", columna "+(s.right+1));
+}
+}
 
-\subsection{Generación de código en análisis ascendente}
+m.append(" : "+message);
 
-SI LO HUBIERA
+System.err.println(m);
+}
+public void report_fatal_error(String message, Object info) {
+report_error(message, info);
+System.exit(1);
+}
+
+public void syntax_error(Symbol s){
+System.out.println("Error recuperable de sintaxis: "+s.value+" Linea "+(s.left+1)+" columna "+(s.right+1) );
+}
+
+public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+System.out.println("Error no recuperable de sintaxis: "+s.value+" Linea "+(s.left+1)+" columna "+(s.right+1) );
+}
+
+:}
+
+action code {:
+
+:}
+
+non terminal programa, dec_metodos, metodos, dec_args, cuerpo_metodo, dec_for, dec_ops, type_boolean, for_st_aux, extra;
+non terminal dec_asigs_ops, type_methods, type_vars,dec_for_loop, dec_asigs, dec_asigs_aux, dec_call,for_st_arrays, dec_exp;
+non terminal dec_return, cuerpo_for, for_st_1, for_st_2, for_st_3, init_for, dec_call_args, dec_asignaciones, dec_call_ops, type_ops;
+
+terminal String LL_OP, LL_CL, FOR ,ID, RETURN, PUNTOCOMA, NUM, PUNTO, NULL, OR, DISTINTO;
+terminal String RELACIONALES, ASIGNACION, INCREMENT, PAR_OP, PAR_CL, COMA, POR, DIV, MENOS, MAS;
+terminal String BEGIN_METODOS, LOGICOS_B, LOGICOS_U, BOOLEAN, TRUE, FALSE, INT, VOID;
+
+precedence left MENOS;
+precedence left MAS;
+precedence left POR;
+precedence right DIV;
+precedence right RELACIONALES;
+precedence right DISTINTO;
+precedence right LOGICOS_B;
+precedence right OR;
+precedence right LOGICOS_U;
+
+
+programa ::= dec_metodos ;
+
+
+dec_metodos ::= metodos | metodos dec_metodos;
+
+metodos ::= BEGIN_METODOS type_methods ID PAR_OP dec_args PAR_CL LL_OP cuerpo_metodo LL_CL;
+
+
+
+dec_args ::= type_vars ID | type_vars ID COMA dec_args | ;
+
+
+cuerpo_metodo ::= dec_for_loop dec_call_ops dec_return;    
+
+dec_for_loop ::= dec_for | ;
+
+
+dec_for ::= FOR PAR_OP init_for PAR_CL LL_OP cuerpo_for dec_for LL_CL
+| FOR PAR_OP init_for PAR_CL LL_OP cuerpo_for LL_CL ;
+
+
+init_for ::= for_st_1 PUNTOCOMA for_st_2 PUNTOCOMA for_st_3 ;
+
+for_st_1 ::=  type_vars ID ASIGNACION for_st_aux | ID ASIGNACION for_st_aux ;
+
+for_st_aux ::= ID | NUM;
+
+for_st_2 ::= ID RELACIONALES for_st_arrays;
+
+for_st_arrays ::= ID PUNTO ID | ID;
+
+for_st_3 ::= ID INCREMENT;
+
+
+cuerpo_for ::= type_ops;
+
+
+dec_asigs_ops ::= dec_asigs dec_asigs_ops |  ;
+
+
+dec_asigs ::= ;
+
+dec_asignaciones ::= ;
+
+
+
+dec_call_ops ::= dec_call dec_call_ops  | ;
+
+dec_call ::=  ID ASIGNACION ID PAR_OP dec_call_args PAR_CL PUNTOCOMA 
+| PAR_OP dec_call_args PAR_CL PUNTOCOMA
+;
+
+
+dec_call_args ::= ID | ID COMA dec_call_args | ; 
+
+dec_return ::= RETURN dec_ops | ;
+
+
+
+dec_ops ::= dec_exp PUNTOCOMA ; 
+
+type_ops ::= dec_exp PUNTOCOMA |   ;
+
+dec_exp ::= NUM
+| ID
+| type_boolean
+| LOGICOS_U dec_exp
+| dec_exp MAS dec_exp
+| dec_exp POR dec_exp
+| dec_exp DIV dec_exp
+| dec_exp MENOS dec_exp
+| dec_exp RELACIONALES dec_exp
+| dec_exp LOGICOS_B dec_exp
+| dec_exp DISTINTO dec_exp
+| dec_exp OR dec_exp
+| PAR_OP dec_exp PAR_CL;
+
+
+
+type_methods ::= INT | BOOLEAN | VOID;
+
+type_vars ::= INT | BOOLEAN ;
+
+dec_asigs_aux ::= ID | NUM | type_boolean;
+
+type_boolean ::= TRUE | FALSE;
+
+
+\end{lstlisting}\clearpage
+\subsection{Control de errores sintácticos}
+
+Para controlar los errores sintácticos en CUP se han utilizado producciones de error. Las producciones de error utilizan un símbolo terminal error que pertenece a la clase \textit{Symbol} propia de CUP.\newline\newline
+De tal manera que cuando se produce una reducción al mismo, se invoca a una rutina de error asociada a este símbolo. En esta rutina de error, se invoca al método report\_error de la clase \textit{Parser}.
+\clearpage
+

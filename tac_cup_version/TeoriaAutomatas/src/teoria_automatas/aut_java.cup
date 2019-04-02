@@ -37,17 +37,15 @@ action code {:
 
 :}
 
-non terminal programa, dec_metodos, metodos, dec_args, cuerpo_metodo, dec_for, dec_ops, type_boolean, for_st_aux;
-non terminal type_methods, type_vars, dec_asigs, dec_call,for_st_arrays, dec_exp, bloque_inst, inst, inst_for, bloque_inst_for;
-non terminal dec_return, cuerpo_for, for_st_1, for_st_2, for_st_3, init_for, dec_call_args, type_asigs, types_dec_for;
+non terminal dec_metodos, metodos, dec_args, cuerpo_metodo, dec_for, type_boolean, for_st_aux, fin;
+non terminal type_methods, type_vars, dec_asigs, dec_call,for_st_arrays, dec_exp,dec_exp_extra,dec_exp_aux, bloque_inst, inst, inst_for, bloque_inst_for;
+non terminal dec_return, cuerpo_for, for_st_1, for_st_2, for_st_3, init_for, dec_call_args;
 
-terminal String LL_OP, LL_CL, FOR ,ID, RETURN, PUNTOCOMA, NUM, PUNTO, OR, DISTINTO, DECREMENTAR;
+terminal String LL_OP, LL_CL, FOR ,ID, RETURN, PUNTOCOMA, NUM, PUNTO, OR, DISTINTO, DECREMENT;
 terminal String RELACIONALES, ASIGNACION, INCREMENT, PAR_OP, PAR_CL, COMA, POR, DIV, MENOS, MAS;
-terminal String BEGIN_METODOS, LOGICOS_B, LOGICOS_U, BOOLEAN, TRUE, FALSE, INT, VOID, MENOSMENOS;
+terminal String BEGIN_METODOS, LOGICOS_B, LOGICOS_U, BOOLEAN, TRUE, FALSE, INT, VOID;
 
 /*Inicio de la gramática*/
-programa ::= dec_metodos ;
-
 /*Para poder generar los metodos de 1 a N veces*/
 dec_metodos ::= metodos | metodos dec_metodos;
 
@@ -79,7 +77,7 @@ for_st_aux ::= ID | NUM;
 
 for_st_2 ::= ID RELACIONALES for_st_arrays;
 
-for_st_arrays ::= ID PUNTO ID | ID;
+for_st_arrays ::= ID PUNTO ID PAR_OP PAR_CL | ID;
 
 /* Problemas con el --*/
 for_st_3 ::= ID INCREMENT | ID "--";
@@ -93,12 +91,13 @@ inst_for ::= dec_call | dec_asigs;
 
 /* Asignaciones, declaraciones to padentro tipo int a = 0;  boolean asdf = true; o int a; */
 dec_asigs ::= type_vars ID PUNTOCOMA
-              | type_vars ID ASIGNACION type_asigs PUNTOCOMA;
+              | type_vars ID ASIGNACION dec_exp PUNTOCOMA;
        
 /*Aqui pretendo construir sintácticamente las llamadas tipo a = calculo(val) o mostrartal(e, a )*/ 
 dec_call ::=  ID ASIGNACION ID PAR_OP dec_call_args PAR_CL PUNTOCOMA 
              | ID PAR_OP dec_call_args PAR_CL PUNTOCOMA
-             | type_vars ID ASIGNACION ID PAR_OP dec_call_args PAR_CL PUNTOCOMA;
+             | type_vars ID ASIGNACION ID PAR_OP dec_call_args PAR_CL PUNTOCOMA
+             | ID ASIGNACION dec_exp PUNTOCOMA;
           
 /* Construcciones de argumentos de llamadas a metodos a, b, c o a o lambda*/
 dec_call_args ::= ID | ID COMA dec_call_args | ; 
@@ -108,14 +107,18 @@ no influye que se pueda construir un método void con return ya que eso se compr
 dec_return ::= RETURN dec_exp PUNTOCOMA ;
 
 /*Aqui pretendo implementar operaciones de tipo (x<3) && !true */
-dec_exp ::= ;
+dec_exp ::= dec_exp MAS dec_exp_extra | dec_exp MENOS dec_exp_extra | dec_exp_extra;
+
+dec_exp_extra ::= dec_exp_extra POR fin | dec_exp_extra DIV fin | dec_exp_aux;
+
+dec_exp_aux ::=  dec_exp_aux OR fin | dec_exp_aux LOGICOS_B fin | dec_exp_aux RELACIONALES fin| dec_exp_aux DISTINTO fin |fin ;
+
+fin ::= MENOS fin| LOGICOS_U fin | PAR_OP dec_exp PAR_CL | NUM | ID | type_boolean;
 
 /*Estructura de símbolos terminales */
 type_methods ::= INT | BOOLEAN | VOID;
 
 type_vars ::= INT | BOOLEAN ;
-
-type_asigs ::= NUM | ID | type_boolean; 
 
 type_boolean ::= TRUE | FALSE;
 
