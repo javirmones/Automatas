@@ -33,92 +33,94 @@ public void report_error(String message, Object info) {
 
 :}
 
-action code {:
 
-:}
+non terminal dec_metodos, metodo_simple, dec_argumentos, cuerpo_metodo, dec_for, tipo_boolean, metodo_void, tipos_metodos, cuerpo_metodo_void, bloque_inst_void;
+non terminal tipo_variables, tipo_void, dec_tipos, dec_llamada, dec_exp,dec_exp_n1, dec_exp_n2, bloque_inst, inst, generar_tipos, dec_exp_n4, dec_exp_n5, exp_metodo;
+non terminal dec_return, cuerpo_for, for_st_1, for_st_2, for_st_3, cabecera_for, dec_llamada_args, inst_void, dec_asigs, dec_exp_n3, parte_tipos, dec_for_void, cuerpo_for_void;
 
-non terminal dec_metodos, metodos, dec_args, cuerpo_metodo, dec_for, type_boolean, for_st_aux, fin;
-non terminal type_methods, type_vars, dec_asigs, dec_call,for_st_arrays, dec_exp,dec_exp_extra,dec_exp_aux, bloque_inst, inst, inst_for, bloque_inst_for;
-non terminal dec_return, cuerpo_for, for_st_1, for_st_2, for_st_3, init_for, dec_call_args;
+terminal String LL_A, LL_C, FOR ,ID, RETURN, PUNTOCOMA, NUM, PUNTO, OR, DISTINTO, DECREMENTO;
+terminal String RELACIONALES, ASIGNACION, INCREMENTO, PAR_A, PAR_C, COMA, POR, DIV, MENOS, MAS;
+terminal String CABECERA_METODOS, AND, NOT, BOOLEAN, TRUE, FALSE, INT, VOID, MASIGUAL;
 
-terminal String LL_OP, LL_CL, FOR ,ID, RETURN, PUNTOCOMA, NUM, PUNTO, OR, DISTINTO, DECREMENT;
-terminal String RELACIONALES, ASIGNACION, INCREMENT, PAR_OP, PAR_CL, COMA, POR, DIV, MENOS, MAS;
-terminal String BEGIN_METODOS, LOGICOS_B, LOGICOS_U, BOOLEAN, TRUE, FALSE, INT, VOID;
+/* Metodos */
+dec_metodos ::= tipos_metodos | tipos_metodos dec_metodos;
 
-/*Inicio de la gramática*/
-/*Para poder generar los metodos de 1 a N veces*/
-dec_metodos ::= metodos | metodos dec_metodos;
+tipos_metodos ::= metodo_simple | metodo_void;
 
-/*Declaracion de metodos*/
-metodos ::= BEGIN_METODOS type_methods ID PAR_OP dec_args PAR_CL LL_OP cuerpo_metodo LL_CL;
-            
-/*Argumentos de los métodos de 1 a N veces o ninguna*/
-dec_args ::= type_vars ID | type_vars ID COMA dec_args | ;
+metodo_simple ::= CABECERA_METODOS tipo_variables ID PAR_A dec_argumentos PAR_C LL_A cuerpo_metodo LL_C;
 
-/*El cuerpo de los metodos es lo que queramos meterle dentro*/
+metodo_void ::= CABECERA_METODOS tipo_void ID PAR_A dec_argumentos PAR_C LL_A cuerpo_metodo_void LL_C;
+
+dec_argumentos ::= tipo_variables ID | tipo_variables ID COMA dec_argumentos | ;
+
 cuerpo_metodo ::= bloque_inst |  ;    
 
-/*Bloque de instrucciones*/
+cuerpo_metodo_void ::= bloque_inst_void | ;
+
+/* Instrucciones */
 bloque_inst ::= inst | inst bloque_inst;
 
-/*Declaracion de instrucciones*/
-inst ::= dec_for | dec_call | dec_asigs | dec_return ;
+bloque_inst_void ::= inst_void | inst_void bloque_inst_void;
 
-/*Realizamos aqui la declaracion de uno o muchos bucles for uno dentro de otro*/
-dec_for ::= FOR PAR_OP init_for PAR_CL LL_OP cuerpo_for dec_for LL_CL
-           | FOR PAR_OP init_for PAR_CL LL_OP cuerpo_for LL_CL ;
+inst ::= dec_for | dec_llamada | dec_tipos| dec_asigs | dec_return;
 
-/*El contenido del bucle (   A  ; B ;  C ) donde A = for_st_1, B = for_st_2 y C = for_st_3 */
-init_for ::= for_st_1 PUNTOCOMA for_st_2 PUNTOCOMA for_st_3 ;
+inst_void ::= dec_for_void | dec_llamada | dec_tipos | dec_asigs;
 
-for_st_1 ::=  type_vars ID ASIGNACION for_st_aux | ID ASIGNACION for_st_aux ;
+/* For */
+dec_for ::= FOR PAR_A cabecera_for PAR_C LL_A cuerpo_for LL_C;
 
-for_st_aux ::= ID | NUM;
+dec_for_void ::= FOR PAR_A cabecera_for PAR_C LL_A cuerpo_for_void LL_C;
 
-for_st_2 ::= ID RELACIONALES for_st_arrays;
+cabecera_for ::= for_st_1 PUNTOCOMA for_st_2 PUNTOCOMA for_st_3 ;
 
-for_st_arrays ::= ID PUNTO ID PAR_OP PAR_CL | ID;
+for_st_1 ::=  tipo_variables ID ASIGNACION dec_exp | ID ASIGNACION dec_exp;
 
-/* Problemas con el --*/
-for_st_3 ::= ID INCREMENT | ID "--";
+for_st_2 ::= ID RELACIONALES dec_exp | ID DISTINTO dec_exp;
 
-/* Contenido del bucle for (Hay que meter asignaciones, llamadas y )*/
-cuerpo_for ::= bloque_inst_for | ;
+for_st_3 ::= ID INCREMENTO | ID DECREMENTO | ID ASIGNACION dec_exp | ID MASIGUAL dec_exp;
 
-bloque_inst_for ::= inst_for | inst_for bloque_inst_for;
+cuerpo_for ::= bloque_inst | ;
 
-inst_for ::= dec_call | dec_asigs; 
+cuerpo_for_void ::= bloque_inst_void | ;
 
-/* Asignaciones, declaraciones to padentro tipo int a = 0;  boolean asdf = true; o int a; */
-dec_asigs ::= type_vars ID PUNTOCOMA
-              | type_vars ID ASIGNACION dec_exp PUNTOCOMA;
-       
-/*Aqui pretendo construir sintácticamente las llamadas tipo a = calculo(val) o mostrartal(e, a )*/ 
-dec_call ::=  ID ASIGNACION ID PAR_OP dec_call_args PAR_CL PUNTOCOMA 
-             | ID PAR_OP dec_call_args PAR_CL PUNTOCOMA
-             | type_vars ID ASIGNACION ID PAR_OP dec_call_args PAR_CL PUNTOCOMA
-             | ID ASIGNACION dec_exp PUNTOCOMA;
+/*Generar tipos */
+dec_tipos ::= parte_tipos PUNTOCOMA;
+
+parte_tipos ::= tipo_variables generar_tipos;
+
+generar_tipos ::= ID | ID COMA generar_tipos;
+
+/*Asignaciones */
+dec_asigs ::= parte_tipos ASIGNACION dec_exp PUNTOCOMA
+                | ID ASIGNACION dec_exp PUNTOCOMA;
+
+/*Llamadas a métodos */
+dec_llamada ::= exp_metodo PUNTOCOMA;
           
-/* Construcciones de argumentos de llamadas a metodos a, b, c o a o lambda*/
-dec_call_args ::= ID | ID COMA dec_call_args | ; 
+exp_metodo ::= ID PAR_A dec_llamada_args PAR_C;
 
-/*Aqui pretendo construir la finalización de los metodos que puedan retornar, sintácticamente
-no influye que se pueda construir un método void con return ya que eso se comprueba en el  A. semántico*/
-dec_return ::= RETURN dec_exp PUNTOCOMA ;
+dec_llamada_args ::= dec_exp | dec_exp COMA dec_llamada_args | ; 
 
-/*Aqui pretendo implementar operaciones de tipo (x<3) && !true */
-dec_exp ::= dec_exp MAS dec_exp_extra | dec_exp MENOS dec_exp_extra | dec_exp_extra;
+dec_return ::= RETURN dec_exp PUNTOCOMA;
 
-dec_exp_extra ::= dec_exp_extra POR fin | dec_exp_extra DIV fin | dec_exp_aux;
+/* Expresiones */
+dec_exp ::=  dec_exp OR dec_exp_n1 | dec_exp_n1;
 
-dec_exp_aux ::=  dec_exp_aux OR fin | dec_exp_aux LOGICOS_B fin | dec_exp_aux RELACIONALES fin| dec_exp_aux DISTINTO fin |fin ;
+dec_exp_n1 ::= dec_exp_n1 AND dec_exp_n2 | dec_exp_n2;
 
-fin ::= MENOS fin| LOGICOS_U fin | PAR_OP dec_exp PAR_CL | NUM | ID | type_boolean;
+dec_exp_n2 ::= dec_exp_n2 RELACIONALES dec_exp_n3 | dec_exp_n2 DISTINTO dec_exp_n3 | dec_exp_n3;
 
-/*Estructura de símbolos terminales */
-type_methods ::= INT | BOOLEAN | VOID;
+dec_exp_n3 ::= dec_exp_n3 MAS dec_exp_n4 | dec_exp_n3 MENOS dec_exp_n4 | dec_exp_n4;
 
-type_vars ::= INT | BOOLEAN ;
+dec_exp_n4 ::= dec_exp_n4 POR dec_exp_n5 | dec_exp_n4 DIV dec_exp_n5 | dec_exp_n5;
 
-type_boolean ::= TRUE | FALSE;
+dec_exp_n5 ::= MENOS dec_exp_n5 | NOT dec_exp_n5 | PAR_A dec_exp PAR_C | NUM | ID | ID PUNTO ID| tipo_boolean | exp_metodo;
+
+/*Tipos*/
+tipo_variables ::= INT | BOOLEAN ;
+
+tipo_void ::= VOID;
+
+tipo_boolean ::= TRUE | FALSE;
+
 

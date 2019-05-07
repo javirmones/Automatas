@@ -1,4 +1,3 @@
-package teoria_automatas;
 import java.util.*;
 import java.io.*;
 import java_cup.runtime.Symbol;

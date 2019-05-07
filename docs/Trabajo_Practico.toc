@@ -10,4 +10,5 @@
 \contentsline {section}{\numberline {6}An\IeC {\'a}lisis sint\IeC {\'a}ctico}{8}{section.6}
 \contentsline {subsection}{\numberline {6.1}An\IeC {\'a}lisis sint\IeC {\'a}ctico ascendente}{8}{subsection.6.1}
 \contentsline {subsection}{\numberline {6.2}Cup}{8}{subsection.6.2}
-\contentsline {subsection}{\numberline {6.3}Control de errores sint\IeC {\'a}cticos}{12}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.3}Terminales y No terminales}{12}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}Control de errores sint\IeC {\'a}cticos}{12}{subsection.6.4}

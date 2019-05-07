@@ -22,6 +22,7 @@ import java_cup.runtime.Symbol;
     private Symbol symbol(int type, Object value) {
         return new Symbol(type, yyline, yycolumn, value);
     }
+
 %}
 
 TERMINAR_LINEA = \r|\n|\r\n
@@ -31,37 +32,37 @@ COMENTARIO = {COMENTARIOT} | {FINLINEACOMENT}
 COMENTARIOT = "/*" [^*] ~"*/" | "*/" "*"+ "/";
 FINLINEACOMENT = "//" {CARACTERIN}* {TERMINAR_LINEA}?
 ID = [a-zA-Z][a-zA-Z0-9"_""-"]*
-LOGICOS_BINARIOS = "&&"
 RELACIONALES = "<" | "<=" | ">" | ">=" | "=="
 ASIGNACION = "="
 NUM = 0 | [1-9][0-9]*
 
 
 %%
+    "−−" {return symbol(sym.DECREMENTO, new String(yytext()));} 
     "*" {return symbol(sym.POR, new String(yytext()));} 
     "/" {return symbol(sym.DIV, new String(yytext()));} 
-    "-" {return symbol(sym.MENOS, new String(yytext()));} 
+    "−" {return symbol(sym.MENOS, new String(yytext()));} 
     "+" {return symbol(sym.MAS, new String(yytext()));}  
-    "return" {return symbol(sym.RETURN, new String(yytext()));} 
+    "return" {return symbol(sym.RETURN, new String(yytext()));}
+    "+=" {return symbol(sym.MASIGUAL, new String(yytext()));}
     "for" {return symbol(sym.FOR, new String(yytext()));}
     "int" {return symbol(sym.INT, new String(yytext()));}
     "boolean" {return symbol(sym.BOOLEAN, new String(yytext()));}
     "void" {return symbol(sym.VOID, new String(yytext()));}
-    "public static" {return symbol(sym.BEGIN_METODOS, new String(yytext()));}
+    "public static" {return symbol(sym.CABECERA_METODOS, new String(yytext()));}
     "true"  {return symbol(sym.TRUE, new String(yytext()));}
     "false" {return symbol(sym.FALSE, new String(yytext()));}
     {RELACIONALES} {return symbol(sym.RELACIONALES, new String(yytext()));}
     ";" {return symbol(sym.PUNTOCOMA , new String(yytext()));}
     {ASIGNACION} {return symbol(sym.ASIGNACION, new String(yytext()));}
-    "++" {return symbol(sym.INCREMENT, new String(yytext()));}
-    "--" {return symbol(sym.DECREMENT, new String(yytext()));}
-    {LOGICOS_BINARIOS} {return symbol(sym.LOGICOS_B, new String(yytext()));}
-    "!" {return symbol(sym.LOGICOS_U, new String(yytext()));}
+    "++" {return symbol(sym.INCREMENTO, new String(yytext()));}
+    "&&" {return symbol(sym.AND, new String(yytext()));}
+    "!" {return symbol(sym.NOT, new String(yytext()));}
     "!=" {return symbol(sym.DISTINTO, new String(yytext()));}
-    "{" {return symbol(sym.LL_OP, new String(yytext()));}
-    "}" {return symbol(sym.LL_CL, new String(yytext()));}
-    "(" {return symbol(sym.PAR_OP, new String(yytext()));}
-    ")" {return symbol(sym.PAR_CL, new String(yytext()));}
+    "{" {return symbol(sym.LL_A, new String(yytext()));}
+    "}" {return symbol(sym.LL_C, new String(yytext()));}
+    "(" {return symbol(sym.PAR_A, new String(yytext()));}
+    ")" {return symbol(sym.PAR_C, new String(yytext()));}
     "," {return symbol(sym.COMA, new String(yytext()));}
     "." {return symbol(sym.PUNTO, new String(yytext()));}
     "||" {return symbol(sym.OR, new String(yytext()));}

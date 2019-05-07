@@ -1,26 +1,23 @@
 
 
-public static void comparar( int a, boolean b) {
+public static int comparar( int a, boolean b) {
+    
+    int a = hola(hola(), 3*5);
 
-    int ca;
-    boolean b = true;
-    int c = calculaValor(a);
+    for( int i = 3 ; i < hola.length; i−−) {
 
-    for( int i = 0; i < array.length() ; i--) {
-        for( int i = 0; i <= array.length(); j++) {
-            c = c + 1;
+        for( int i = 0; i <= 4; j += 1) {
+
         }
     }
-    c = c + 2;
     
-    return c;
+    return ((3*5)||(3/2))||2;
 }
 
 public static void hola(int b, int c) {
     
     int hola =0;
     boolean b = true;
-  
 
-    return((2<5*2) || (aux<1)) && true;
 }
+
