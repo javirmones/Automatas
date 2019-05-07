@@ -1,3 +1,11 @@
+## Dependencias
+* Jflex >= 1.6.1 
+* cup >= 0.11a 
+* java >= 1.8.0_201
+
+```
+sudo apt-get install jflex cup
+```
 ## ¿Cómo ejecutar?
 
 Para compilar todos los archivos ejecute el comando:
